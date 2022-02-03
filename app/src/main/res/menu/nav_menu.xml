@@ -3,7 +3,7 @@
     xmlns:tools = "http://schemas.android.com/tools"
     tools:context = "com.example.timetable.MainActivity">
     <item
-        android:id = "@+id/mainFragment"
+        android:id = "@+id/moviesFragment"
         android:title = "Movies"
         android:icon = "@drawable/ic_movies_24"
         />
