@@ -1,5 +1,6 @@
 package ru.mirzacharlie.movies.ui.screens.movies
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -24,21 +25,27 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
     private var data: List<MovieEntity> = emptyList()
 
     fun update(data: List<MovieEntity>) {
-        DiffUtil.calculateDiff(DiffCallback(this.data, data)).dispatchUpdatesTo(this)
+        Log.e("ADAPTER", "Adapter updated!!!!!")
+
+        val diffResult = DiffUtil.calculateDiff(DiffCallback(this.data, data))
         this.data = data
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+
+        Log.e("ADAPTER", "Size: ${data.size}, Pos: $position")
+
+        if (position >= data.size - 1 && data.size >= 20) {
+            onReachEndListener?.onReachEnd()
+        }
+
         val movie = data[position]
 
         holder.binding.imageViewPoster.load("https://image.tmdb.org/t/p/w220_and_h330_face" + movie.posterPath)
 
         holder.binding.imageViewPoster.setOnClickListener {
             onItemCLickListener?.onItemClick(movie.id)
-        }
-
-        if (position == data.size - 4) {
-            onReachEndListener?.onReachEnd()
         }
     }
 
