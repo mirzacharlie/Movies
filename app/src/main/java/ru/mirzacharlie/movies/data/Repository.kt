@@ -1,21 +1,31 @@
 package ru.mirzacharlie.movies.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import ru.mirzacharlie.movies.api.ApiService
-import ru.mirzacharlie.movies.utils.toEntity
+import ru.mirzacharlie.movies.PreferencesManager
 import javax.inject.Inject
 
 class Repository @Inject constructor(
-    private val apiService: ApiService,
-    private val movieDao: MovieDao
+    private val movieDao: MovieDao,
+    private val preferencesManager: PreferencesManager
 ) {
 
-    private val _movies = MutableLiveData<List<MovieEntity>>()
-    val movies: LiveData<List<MovieEntity>> get() = _movies
+    val movies = movieDao.getPopulars()
+    val favourites = movieDao.getFavourites()
 
-    suspend fun requestPopular() {
-        val result = apiService.getPopular(page = 1).movies
-        _movies.value = result.map { it.toEntity() }
+    suspend fun getMovieById(id: Int) =
+        movieDao.getById(id)
+
+    suspend fun saveMovies(movies: List<MovieEntity>) {
+        movieDao.insertList(movies)
+    }
+
+    suspend fun updateFavourite(id: Int, isFavourite: Int) {
+        movieDao.updateFavourite(id, isFavourite)
+    }
+
+    fun getLastLoadedPageNumber(): Int =
+        preferencesManager.getCashedPages()
+
+    fun setLastLoadedPageNumber(lastPage: Int) {
+        preferencesManager.setCashedPages(lastPage)
     }
 }

@@ -14,7 +14,7 @@ interface ApiService {
         private const val PARAM_PAGE = "page"
 
         private const val API_KEY = "79c59ba1bab058ffbcfd476a63254d09"
-        private const val LANGUAGE_VALUE = "ru-RU"
+        private const val LANGUAGE_VALUE = "en-EN"
         private const val SORT_BY_POPULARITY = "popularity.desc"
         private const val SORT_BY_RATING = "vote_average.desc"
     }

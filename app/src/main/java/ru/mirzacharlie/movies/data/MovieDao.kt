@@ -6,11 +6,14 @@ import androidx.room.*
 @Dao
 interface MovieDao {
 
-    @Query("SELECT * FROM movies ORDER BY popularity")
-    fun getPopulars(): LiveData<MovieEntity>
+    @Query("SELECT * FROM movies ORDER BY popularity DESC")
+    fun getPopulars(): LiveData<List<MovieEntity>>
 
-    @Query("SELECT * FROM movies ORDER BY rating")
-    fun getTopRated(): LiveData<MovieEntity>
+    @Query("SELECT * FROM movies WHERE isFavourite == 1 ORDER BY popularity DESC")
+    fun getFavourites(): LiveData<List<MovieEntity>>
+
+    @Query("SELECT * FROM movies WHERE id == :id")
+    suspend fun getById(id: Int): MovieEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(data: MovieEntity)
@@ -20,6 +23,9 @@ interface MovieDao {
 
     @Update
     suspend fun update(data: MovieEntity)
+
+    @Query("UPDATE movies SET isFavourite = :isFavourite WHERE id = :id")
+    suspend fun updateFavourite(id: Int, isFavourite: Int): Int
 
     @Delete
     suspend fun delete(data: MovieEntity)
