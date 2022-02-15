@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android = "http://schemas.android.com/apk/res/android"
     xmlns:tools = "http://schemas.android.com/tools"
-    tools:context = "com.example.timetable.MainActivity">
+    tools:context = "ru.mirzacharlie.movies.ui.activities.MainActivity">
     <item
         android:id = "@+id/moviesFragment"
         android:title = "Movies"
         android:icon = "@drawable/ic_movies_24"
+        />
+    <item
+        android:id = "@+id/favouritesFragment"
+        android:title = "Favourites"
+        android:icon = "@drawable/ic_favorite_24"
         />
 </menu>

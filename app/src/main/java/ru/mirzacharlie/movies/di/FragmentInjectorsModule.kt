@@ -2,6 +2,8 @@ package ru.mirzacharlie.movies.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import ru.mirzacharlie.movies.ui.screens.favourites.FavouritesFragment
+import ru.mirzacharlie.movies.ui.screens.favourites.FavouritesModule
 import ru.mirzacharlie.movies.ui.screens.moviedetails.MovieDetailsFragment
 import ru.mirzacharlie.movies.ui.screens.moviedetails.MovieDetailsModule
 import ru.mirzacharlie.movies.ui.screens.movies.MoviesFragment
@@ -15,4 +17,7 @@ abstract class FragmentInjectorsModule {
 
     @ContributesAndroidInjector(modules = [MovieDetailsModule::class])
     abstract fun movieDetailsFragmentInjector(): MovieDetailsFragment
+
+    @ContributesAndroidInjector(modules = [FavouritesModule::class])
+    abstract fun favouritesFragmentInjector(): FavouritesFragment
 }

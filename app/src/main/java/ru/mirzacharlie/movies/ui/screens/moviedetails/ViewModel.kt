@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.Module
 import dagger.Provides
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.mirzacharlie.movies.data.MovieEntity
 import ru.mirzacharlie.movies.data.Repository
@@ -32,9 +33,20 @@ class MovieDetailsVM @Inject constructor(
     val movie: LiveData<MovieEntity> get() = _movie
 
     fun requestMovie(id: Int) {
-        viewModelScope.launch {
-            val m = repository.getMovieById(id)
-            _movie.value = m
+        viewModelScope.launch(Dispatchers.IO) {
+            _movie.postValue(repository.getMovieById(id))
+        }
+    }
+
+    fun updateFavourite() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val movie = _movie.value ?: return@launch
+            if (movie.isFavourite == 0) {
+                repository.updateFavourite(movie.id, 1)
+            } else {
+                repository.updateFavourite(movie.id, 0)
+            }
+            requestMovie(movie.id)
         }
     }
 }

@@ -35,7 +35,7 @@ class MoviesVM @Inject constructor(
     fun loadNewPage() {
         viewModelScope.launch(Dispatchers.IO) {
             val page = repository.getLastLoadedPageNumber()
-            Log.e("ViewModel", "Page $page")
+            Log.d("MoviesVM", "Page $page")
             repository.saveMovies(
                 apiService.getPopular(page = page + 1).movies.map {
                     it.toEntity()

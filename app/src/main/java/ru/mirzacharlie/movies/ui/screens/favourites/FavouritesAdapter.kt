@@ -1,6 +1,5 @@
-package ru.mirzacharlie.movies.ui.screens.movies
+package ru.mirzacharlie.movies.ui.screens.favourites
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -9,18 +8,13 @@ import coil.load
 import ru.mirzacharlie.movies.data.MovieEntity
 import ru.mirzacharlie.movies.databinding.ItemMovieBinding
 
-class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
+class FavouritesAdapter : RecyclerView.Adapter<FavouritesAdapter.MovieViewHolder>() {
 
     interface OnItemCLickListener {
         fun onItemClick(id: Int)
     }
 
-    interface OnReachEndListener {
-        fun onReachEnd()
-    }
-
     var onItemCLickListener: OnItemCLickListener? = null
-    var onReachEndListener: OnReachEndListener? = null
 
     private var data: List<MovieEntity> = emptyList()
 
@@ -31,16 +25,9 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-
-        Log.e("ADAPTER", "Size: ${data.size}, Pos: $position")
-
-        if (position >= data.size - 1 && data.size >= 20) {
-            onReachEndListener?.onReachEnd()
-        }
-
         val movie = data[position]
 
-        holder.binding.imageViewPoster.load("https://image.tmdb.org/t/p/w220_and_h330_face" + movie.posterPath)
+        holder.binding.imageViewPoster.load("https://image.tmdb.org/t/p/w500" + movie.posterPath)
 
         holder.binding.imageViewPoster.setOnClickListener {
             onItemCLickListener?.onItemClick(movie.id)
