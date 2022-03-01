@@ -5,10 +5,13 @@ import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.mirzacharlie.movies.databinding.FragmentMoviesBinding
 import ru.mirzacharlie.movies.ui.base.BaseFragment
 
-class MoviesFragment : BaseFragment<MoviesVM, FragmentMoviesBinding>(FragmentMoviesBinding::inflate) {
+class MoviesFragment : BaseFragment<FragmentMoviesBinding>(FragmentMoviesBinding::inflate) {
+
+    private val viewModel: MoviesVM by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

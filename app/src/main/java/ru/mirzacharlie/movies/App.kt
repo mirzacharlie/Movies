@@ -1,18 +1,23 @@
 package ru.mirzacharlie.movies
 
-import ru.mirzacharlie.movies.di.DaggerAppComponent
-import ru.mirzacharlie.movies.ui.base.BaseApplication
+import android.app.Application
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
+import ru.mirzacharlie.movies.di.appModule
+import ru.mirzacharlie.movies.di.dataModule
+import ru.mirzacharlie.movies.di.networkModule
 
-class App : BaseApplication() {
+class App : Application() {
 
     override fun onCreate() {
-
-        DaggerAppComponent
-            .builder()
-            .application(this)
-            .build()
-            .inject(this)
-
         super.onCreate()
+
+        startKoin {
+            androidLogger(Level.ERROR)
+            androidContext(this@App)
+            modules(listOf(appModule, networkModule, dataModule))
+        }
     }
 }

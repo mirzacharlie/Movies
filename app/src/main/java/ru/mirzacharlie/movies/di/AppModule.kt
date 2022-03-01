@@ -1,31 +1,30 @@
 package ru.mirzacharlie.movies.di
 
-import android.app.Application
-import android.content.Context
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
-import dagger.Module
-import dagger.Provides
-import ru.mirzacharlie.movies.App
-import javax.inject.Singleton
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
+import ru.mirzacharlie.movies.ui.activities.MainVM
+import ru.mirzacharlie.movies.ui.screens.favourites.FavouritesVM
+import ru.mirzacharlie.movies.ui.screens.moviedetails.MovieDetailsVM
+import ru.mirzacharlie.movies.ui.screens.movies.MoviesVM
 
-@Module(includes = [NetworkModule::class])
-class AppModule {
+val appModule = module {
 
-    @Provides
-    @Singleton
-    fun provideApplicationContext(app: App): Context =
-        app.applicationContext
+    viewModel<MainVM> {
+        MainVM()
+    }
 
-    @Provides
-    @Singleton
-    fun provideSharedPreferences(app: Application): SharedPreferences =
-        app.getSharedPreferences("AppPreferences", AppCompatActivity.MODE_PRIVATE)
+    viewModel<MoviesVM> {
+        MoviesVM(
+            apiService = get(),
+            repository = get()
+        )
+    }
 
-//    @Provides
-//    @Singleton
-//    fun provideRepository(
-//        apiService: ApiService,
-//        movieDao: MovieDao
-//    ): Repository = Repository(apiService, movieDao)
+    viewModel<MovieDetailsVM> {
+        MovieDetailsVM(repository = get())
+    }
+
+    viewModel<FavouritesVM> {
+        FavouritesVM(repository = get())
+    }
 }

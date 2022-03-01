@@ -4,17 +4,14 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.mirzacharlie.movies.R
 import ru.mirzacharlie.movies.databinding.ActivityMainBinding
-import ru.mirzacharlie.movies.di.ViewModelInjection
 import ru.mirzacharlie.movies.ui.base.BaseActivity
-import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
 
-    @Inject
-    @ViewModelInjection
-    lateinit var viewModel: MainVM
+    private val viewModel: MainVM by viewModel()
 
     private var _binding: ActivityMainBinding? = null
     private val binding: ActivityMainBinding

@@ -4,13 +4,15 @@ import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.navArgs
 import coil.load
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.mirzacharlie.movies.R
 import ru.mirzacharlie.movies.databinding.FragmentMovieDetailsBinding
 import ru.mirzacharlie.movies.ui.base.BaseFragment
 
 class MovieDetailsFragment :
-    BaseFragment<MovieDetailsVM, FragmentMovieDetailsBinding>(FragmentMovieDetailsBinding::inflate)
-{ // ktlint-disable curly-spacing
+    BaseFragment<FragmentMovieDetailsBinding>(FragmentMovieDetailsBinding::inflate) { // ktlint-disable curly-spacing
+
+    private val viewModel: MovieDetailsVM by viewModel()
 
     private val args: MovieDetailsFragmentArgs by navArgs()
 

@@ -1,13 +1,5 @@
 package ru.mirzacharlie.movies.ui.base
 
-import android.os.Bundle
-import android.os.PersistableBundle
-import dagger.android.AndroidInjection
-import dagger.android.support.DaggerAppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 
-abstract class BaseActivity : DaggerAppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        AndroidInjection.inject(this)
-        super.onCreate(savedInstanceState, persistentState)
-    }
-}
+abstract class BaseActivity : AppCompatActivity()

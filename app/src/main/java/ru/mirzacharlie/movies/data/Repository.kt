@@ -1,9 +1,8 @@
 package ru.mirzacharlie.movies.data
 
 import ru.mirzacharlie.movies.PreferencesManager
-import javax.inject.Inject
 
-class Repository @Inject constructor(
+class Repository(
     private val movieDao: MovieDao,
     private val preferencesManager: PreferencesManager
 ) {

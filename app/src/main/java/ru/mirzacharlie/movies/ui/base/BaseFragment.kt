@@ -4,18 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModel
+import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import dagger.android.support.DaggerFragment
-import ru.mirzacharlie.movies.di.ViewModelInjection
-import javax.inject.Inject
 
-abstract class BaseFragment<VM : ViewModel, VB : ViewBinding>(open val bindingFactory: (LayoutInflater) -> VB) :
-    DaggerFragment() {
-
-    @Inject
-    @ViewModelInjection
-    lateinit var viewModel: VM
+abstract class BaseFragment<VB : ViewBinding>(open val bindingFactory: (LayoutInflater) -> VB) :
+    Fragment() {
 
     private var _binding: VB? = null
     protected val binding: VB get() = _binding!!

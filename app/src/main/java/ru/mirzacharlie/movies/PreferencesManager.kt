@@ -1,9 +1,8 @@
 package ru.mirzacharlie.movies
 
 import android.content.SharedPreferences
-import javax.inject.Inject
 
-class PreferencesManager @Inject constructor(private val sharedPreferences: SharedPreferences) {
+class PreferencesManager(private val sharedPreferences: SharedPreferences) {
 
     private val SAVED_PAGES = "saved pages"
 
