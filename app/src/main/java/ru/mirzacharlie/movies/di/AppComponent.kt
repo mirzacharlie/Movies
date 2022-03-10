@@ -1,11 +1,11 @@
 package ru.mirzacharlie.movies.di
 
-import android.app.Application
 import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjector
+import dagger.android.AndroidInjectionModule
 import dagger.android.support.AndroidSupportInjectionModule
 import ru.mirzacharlie.movies.App
+import ru.mirzacharlie.movies.ui.activities.MainActivityModule
 import javax.inject.Singleton
 
 @Singleton
@@ -13,21 +13,21 @@ import javax.inject.Singleton
     modules = [
         AppModule::class,
         DatabaseModule::class,
+        AndroidInjectionModule::class,
         AndroidSupportInjectionModule::class,
+        MainActivityModule::class,
         ActivityInjectorsModule::class,
-        FragmentInjectorsModule::class
     ]
 )
-interface AppComponent : AndroidInjector<App> {
+interface AppComponent {
 
     @Component.Builder
     interface Builder {
-
         @BindsInstance
-        fun application(application: Application): Builder
+        fun application(application: App): Builder
 
         fun build(): AppComponent
     }
 
-    override fun inject(application: App)
+    fun inject(application: App)
 }

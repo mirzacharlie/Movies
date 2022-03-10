@@ -3,26 +3,31 @@ package ru.mirzacharlie.movies.ui.screens.movies
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
+import dagger.android.AndroidInjector
+import dagger.multibindings.ClassKey
+import dagger.multibindings.IntoMap
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.mirzacharlie.movies.api.ApiService
 import ru.mirzacharlie.movies.data.Repository
-import ru.mirzacharlie.movies.di.InjectionViewModelProvider
-import ru.mirzacharlie.movies.di.ViewModelInjection
 import ru.mirzacharlie.movies.utils.toEntity
 import javax.inject.Inject
 
-@Module
-class MoviesModule {
+@Module(subcomponents = [MoviesFragmentComponent::class])
+internal abstract class MoviesModule {
 
-    @Provides
-    @ViewModelInjection
-    fun provideMoviesVM(
-        fragment: MoviesFragment,
-        viewModelProvider: InjectionViewModelProvider<MoviesVM>
-    ): MoviesVM = viewModelProvider.get(fragment, MoviesVM::class)
+    @Binds @IntoMap @ClassKey(MoviesFragment::class)
+    internal abstract fun bindFragmentInjectorFactory(factory: MoviesFragmentComponent.Factory):
+        AndroidInjector.Factory<*>
+
+//    @Provides
+//    @ViewModelInjection
+//    fun provideMoviesVM(
+//        fragment: MoviesFragment,
+//        viewModelProvider: InjectionViewModelProvider<MoviesVM>
+//    ): MoviesVM = viewModelProvider.get(fragment, MoviesVM::class)
 }
 
 class MoviesVM @Inject constructor(

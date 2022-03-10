@@ -1,18 +1,20 @@
 package ru.mirzacharlie.movies
 
-import ru.mirzacharlie.movies.di.DaggerAppComponent
-import ru.mirzacharlie.movies.ui.base.BaseApplication
+import android.app.Application
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
+import ru.mirzacharlie.movies.di.AppInjector
+import javax.inject.Inject
 
-class App : BaseApplication() {
+class App : Application(), HasAndroidInjector {
+
+    @Inject
+    lateinit var activityInjector: DispatchingAndroidInjector<Any>
+    override fun androidInjector() = activityInjector
 
     override fun onCreate() {
-
-        DaggerAppComponent
-            .builder()
-            .application(this)
-            .build()
-            .inject(this)
-
         super.onCreate()
+
+        AppInjector.inject(this)
     }
 }

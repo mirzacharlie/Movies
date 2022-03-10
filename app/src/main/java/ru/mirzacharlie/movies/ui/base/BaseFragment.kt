@@ -4,21 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
 import dagger.android.support.DaggerFragment
-import ru.mirzacharlie.movies.di.ViewModelInjection
-import javax.inject.Inject
 
-abstract class BaseFragment<VM : ViewModel, VB : ViewBinding>(open val bindingFactory: (LayoutInflater) -> VB) :
+abstract class BaseFragment<VB : ViewBinding>(open val bindingFactory: (LayoutInflater) -> VB) :
     DaggerFragment() {
-
-    @Inject
-    @ViewModelInjection
-    lateinit var viewModel: VM
 
     private var _binding: VB? = null
     protected val binding: VB get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = bindingFactory(layoutInflater)
