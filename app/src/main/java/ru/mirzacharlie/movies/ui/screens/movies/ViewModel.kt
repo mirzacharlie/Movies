@@ -12,15 +12,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.mirzacharlie.movies.api.ApiService
 import ru.mirzacharlie.movies.data.Repository
+import ru.mirzacharlie.movies.di.ViewModelKey
+import ru.mirzacharlie.movies.ui.screens.moviedetails.MovieDetailsVM
 import ru.mirzacharlie.movies.utils.toEntity
 import javax.inject.Inject
 
 @Module(subcomponents = [MoviesFragmentComponent::class])
 internal abstract class MoviesModule {
 
-    @Binds @IntoMap @ClassKey(MoviesFragment::class)
-    internal abstract fun bindFragmentInjectorFactory(factory: MoviesFragmentComponent.Factory):
-        AndroidInjector.Factory<*>
+//    @Binds @IntoMap @ClassKey(MoviesFragment::class)
+//    internal abstract fun bindFragmentInjectorFactory(factory: MoviesFragmentComponent.Factory):
+//        AndroidInjector.Factory<*>
+
+    @Binds @IntoMap @ViewModelKey(MoviesVM::class)
+    internal abstract fun bindViewModel(viewModel: MoviesVM): ViewModel
 
 //    @Provides
 //    @ViewModelInjection
