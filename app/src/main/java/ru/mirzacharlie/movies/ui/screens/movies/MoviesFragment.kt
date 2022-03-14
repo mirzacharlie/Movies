@@ -23,7 +23,7 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(FragmentMoviesBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        requireActivity().appComponent.moviesComponent().build().inject(this)
+//        requireActivity().appComponent.moviesComponent().build().inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

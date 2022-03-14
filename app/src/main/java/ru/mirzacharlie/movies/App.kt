@@ -3,6 +3,7 @@ package ru.mirzacharlie.movies
 import android.app.Application
 import android.content.Context
 import ru.mirzacharlie.movies.di.AppComponent
+import ru.mirzacharlie.movies.di.AppInjector
 import ru.mirzacharlie.movies.di.DaggerAppComponent
 
 class App : Application() {
@@ -18,9 +19,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        appComponent = DaggerAppComponent.factory()
-            .create(this)
-        appComponent.inject(this)
+        AppInjector.inject(this)
     }
 }
 

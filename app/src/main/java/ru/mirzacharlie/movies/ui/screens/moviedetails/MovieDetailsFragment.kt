@@ -27,7 +27,7 @@ class MovieDetailsFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        requireActivity().appComponent.movieDetailsComponent().build().inject(this)
+//        requireActivity().appComponent.movieDetailsComponent().build().inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

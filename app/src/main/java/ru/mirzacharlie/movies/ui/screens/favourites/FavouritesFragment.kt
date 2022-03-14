@@ -20,7 +20,7 @@ class FavouritesFragment : BaseFragment<FavouritesFragmentBinding>(FavouritesFra
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        requireActivity().appComponent.favouritesComponent().build().inject(this)
+//        requireActivity().appComponent.favouritesComponent().build().inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

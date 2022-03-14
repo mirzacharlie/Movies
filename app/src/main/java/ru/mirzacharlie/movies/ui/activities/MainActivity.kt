@@ -1,18 +1,22 @@
 package ru.mirzacharlie.movies.ui.activities
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import ru.mirzacharlie.movies.R
 import ru.mirzacharlie.movies.databinding.ActivityMainBinding
+import ru.mirzacharlie.movies.di.ViewModelFactory
 import ru.mirzacharlie.movies.ui.base.BaseActivity
 import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
 
-//    @Inject
-//    lateinit var viewModel: MainVM
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel: MainVM by viewModels { viewModelFactory }
 
     private var _binding: ActivityMainBinding? = null
     private val binding: ActivityMainBinding
