@@ -1,11 +1,12 @@
 package ru.mirzacharlie.movies.di
 
+import android.app.Application
 import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjectionModule
-import dagger.android.support.AndroidSupportInjectionModule
 import ru.mirzacharlie.movies.App
-import ru.mirzacharlie.movies.ui.activities.MainActivityModule
+import ru.mirzacharlie.movies.ui.screens.favourites.FavouritesFragmentComponent
+import ru.mirzacharlie.movies.ui.screens.moviedetails.MovieDetailsFragmentComponent
+import ru.mirzacharlie.movies.ui.screens.movies.MoviesFragmentComponent
 import javax.inject.Singleton
 
 @Singleton
@@ -13,21 +14,20 @@ import javax.inject.Singleton
     modules = [
         AppModule::class,
         DatabaseModule::class,
-        AndroidInjectionModule::class,
-        AndroidSupportInjectionModule::class,
-        MainActivityModule::class,
-        ActivityInjectorsModule::class,
+        NetworkModule::class
     ]
 )
 interface AppComponent {
 
-    @Component.Builder
-    interface Builder {
-        @BindsInstance
-        fun application(application: App): Builder
+    @Component.Factory
+    interface Factory {
 
-        fun build(): AppComponent
+        fun create(@BindsInstance appContext: Application): AppComponent
     }
 
     fun inject(application: App)
+
+    fun moviesComponent(): MoviesFragmentComponent.Builder
+    fun movieDetailsComponent(): MovieDetailsFragmentComponent.Builder
+    fun favouritesComponent(): FavouritesFragmentComponent.Builder
 }

@@ -9,7 +9,7 @@ import dagger.Provides
 import ru.mirzacharlie.movies.App
 import javax.inject.Singleton
 
-@Module(includes = [NetworkModule::class])
+@Module()
 class AppModule {
 
     @Provides
@@ -21,11 +21,4 @@ class AppModule {
     @Singleton
     fun provideSharedPreferences(app: Application): SharedPreferences =
         app.getSharedPreferences("AppPreferences", AppCompatActivity.MODE_PRIVATE)
-
-//    @Provides
-//    @Singleton
-//    fun provideRepository(
-//        apiService: ApiService,
-//        movieDao: MovieDao
-//    ): Repository = Repository(apiService, movieDao)
 }

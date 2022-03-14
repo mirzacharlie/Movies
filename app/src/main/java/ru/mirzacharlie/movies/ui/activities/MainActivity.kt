@@ -11,8 +11,8 @@ import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
 
-    @Inject
-    lateinit var viewModel: MainVM
+//    @Inject
+//    lateinit var viewModel: MainVM
 
     private var _binding: ActivityMainBinding? = null
     private val binding: ActivityMainBinding

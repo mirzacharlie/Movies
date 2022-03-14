@@ -1,36 +1,19 @@
 package ru.mirzacharlie.movies.ui.screens.moviedetails
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import dagger.Binds
 import dagger.Module
-import dagger.android.AndroidInjector
-import dagger.multibindings.ClassKey
 import dagger.multibindings.IntoMap
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.mirzacharlie.movies.data.MovieEntity
 import ru.mirzacharlie.movies.data.Repository
-import ru.mirzacharlie.movies.di.ViewModelKey
+import ru.mirzacharlie.movies.ui.base.BaseViewModel
 import ru.mirzacharlie.movies.ui.screens.favourites.FavouritesVM
 import javax.inject.Inject
+import javax.inject.Provider
 
-@Module(subcomponents = [MovieDetailsFragmentComponent::class])
-internal abstract class MovieDetailsModule {
-
-//    @Binds @IntoMap @ClassKey(MovieDetailsFragment::class)
-//    internal abstract fun bindFragmentInjectorFactory(factory: MovieDetailsFragmentComponent.Factory):
-//        AndroidInjector.Factory<*>
-
-    @Binds @IntoMap @ViewModelKey(MovieDetailsVM::class)
-    internal abstract fun bindViewModel(viewModel: MovieDetailsVM): ViewModel
-}
-
-class MovieDetailsVM @Inject constructor(
-    private val repository: Repository
-) : ViewModel() {
+class MovieDetailsVM @Inject constructor(private val repository: Repository) : BaseViewModel() {
 
     private val _movie = MutableLiveData<MovieEntity>()
     val movie: LiveData<MovieEntity> get() = _movie
@@ -52,4 +35,13 @@ class MovieDetailsVM @Inject constructor(
             requestMovie(movie.id)
         }
     }
+
+//    class Factory @Inject constructor(private val repository: Provider<Repository>) : ViewModelProvider.Factory {
+//
+//        @Suppress("UNCHECKED_CAST")
+//        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//            require(modelClass == MovieDetailsVM::class.java)
+//            return MovieDetailsVM(repository.get()) as T
+//        }
+//    }
 }

@@ -1,11 +1,33 @@
 package ru.mirzacharlie.movies.ui.screens.moviedetails
 
+import androidx.lifecycle.ViewModel
+import dagger.Binds
+import dagger.Module
 import dagger.Subcomponent
-import dagger.android.AndroidInjector
+import dagger.multibindings.IntoMap
+import ru.mirzacharlie.movies.di.ViewModelKey
+import ru.mirzacharlie.movies.ui.screens.favourites.FavouritesFragment
+import ru.mirzacharlie.movies.ui.screens.favourites.FavouritesVM
+import javax.inject.Scope
 
-@Subcomponent
-internal interface MovieDetailsFragmentComponent : AndroidInjector<MovieDetailsFragment> {
+@Scope
+annotation class MovieDetailsFragmentScope
 
-    @Subcomponent.Factory
-    interface Factory : AndroidInjector.Factory<MovieDetailsFragment>
+@Module
+interface MovieDetailsModule {
+
+    @Binds @IntoMap @ViewModelKey(MovieDetailsVM::class)
+    fun provideViewModel(viewModel: MovieDetailsVM): ViewModel
+}
+
+@Subcomponent(modules = [MovieDetailsModule::class])
+@MovieDetailsFragmentScope
+interface MovieDetailsFragmentComponent {
+
+    fun inject(fragment: MovieDetailsFragment)
+
+    @Subcomponent.Builder
+    interface Builder {
+        fun build(): MovieDetailsFragmentComponent
+    }
 }
