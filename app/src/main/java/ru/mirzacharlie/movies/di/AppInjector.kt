@@ -3,6 +3,7 @@ package ru.mirzacharlie.movies.di
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
@@ -20,6 +21,8 @@ import ru.mirzacharlie.movies.ui.screens.movies.MoviesFragment
 import ru.mirzacharlie.movies.ui.screens.movies.MoviesFragmentComponent
 
 object AppInjector {
+
+    val TAG = "AppInjector"
 
     var app: App? = null
 
@@ -51,48 +54,98 @@ object AppInjector {
                 handleActivity(activity)
             }
 
+            override fun onActivityDestroyed(activity: Activity) {
+                destroyActivityComponent(activity)
+            }
+
             override fun onActivityStarted(p0: Activity) {}
             override fun onActivityResumed(p0: Activity) {}
             override fun onActivityPaused(p0: Activity) {}
             override fun onActivityStopped(p0: Activity) {}
             override fun onActivitySaveInstanceState(p0: Activity, p1: Bundle) {}
-            override fun onActivityDestroyed(p0: Activity) {}
         })
     }
 
     private fun handleActivity(activity: Activity) {
 
-        if (activity is MainActivity) {
-            createMainActivityComponent()
-            mainActivityComponent?.inject(activity)
-        }
+        createActivityComponent(activity)
 
         if (activity is FragmentActivity) {
             activity.supportFragmentManager.registerFragmentLifecycleCallbacks(
                 object : FragmentManager.FragmentLifecycleCallbacks() {
+
                     override fun onFragmentCreated(
                         fm: FragmentManager,
                         f: Fragment,
                         savedInstanceState: Bundle?
                     ) {
-                        when(f) {
-                            is MoviesFragment -> {
-                                createMoviesComponent()
-                                moviesComponent?.inject(f)
-                            }
-                            is MovieDetailsFragment -> {
-                                createMovieDetailsComponent()
-                                movieDetailsComponent?.inject(f)
-                            }
-                            is FavouritesFragment -> {
-                                createFavouritesComponent()
-                                favouritesComponent?.inject(f)
-                            }
-                        }
+                        createFragmentComponent(f)
+                    }
+
+                    override fun onFragmentDetached(fm: FragmentManager, f: Fragment) {
+                        super.onFragmentDetached(fm, f)
+                        destroyFragmentComponent(f)
                     }
                 },
                 true
             )
+        }
+    }
+
+    private fun createActivityComponent(activity: Activity) {
+        when (activity) {
+            is MainActivity -> {
+                createMainActivityComponent()
+                mainActivityComponent?.inject(activity)
+
+                Log.d(TAG, "mainActivityComponent == $mainActivityComponent")
+            }
+        }
+    }
+
+    private fun destroyActivityComponent(activity: Activity) {
+        when (activity) {
+            is MainActivity -> {
+                mainActivityComponent = null
+                Log.d(TAG, "mainActivityComponent == $mainActivityComponent")
+            }
+        }
+    }
+
+    private fun createFragmentComponent(fragment: Fragment) {
+        when (fragment) {
+            is MoviesFragment -> {
+                createMoviesComponent()
+                moviesComponent?.inject(fragment)
+                Log.d(TAG, "moviesFragmentComponent == $moviesComponent")
+            }
+            is MovieDetailsFragment -> {
+                createMovieDetailsComponent()
+                movieDetailsComponent?.inject(fragment)
+                Log.d(TAG, "movieDetailComponent == $movieDetailsComponent")
+            }
+            is FavouritesFragment -> {
+                createFavouritesComponent()
+                favouritesComponent?.inject(fragment)
+                Log.d(TAG, "favFragmentComponent == $favouritesComponent")
+            }
+        }
+    }
+
+    private fun destroyFragmentComponent(fragment: Fragment) {
+        when (fragment) {
+            is MoviesFragment ->{
+                moviesComponent = null
+                Log.d(TAG, "moviesFragmentComponent == $moviesComponent")
+            }
+            is MovieDetailsFragment -> {
+                movieDetailsComponent = null
+                Log.d(TAG, "movieDetailComponent == $movieDetailsComponent")
+            }
+            is FavouritesFragment -> {
+                favouritesComponent = null
+                Log.d(TAG, "favFragmentComponent == $favouritesComponent")
+            }
         }
     }
 

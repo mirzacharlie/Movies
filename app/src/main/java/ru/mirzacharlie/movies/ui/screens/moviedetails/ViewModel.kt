@@ -35,13 +35,4 @@ class MovieDetailsVM @Inject constructor(private val repository: Repository) : B
             requestMovie(movie.id)
         }
     }
-
-//    class Factory @Inject constructor(private val repository: Provider<Repository>) : ViewModelProvider.Factory {
-//
-//        @Suppress("UNCHECKED_CAST")
-//        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//            require(modelClass == MovieDetailsVM::class.java)
-//            return MovieDetailsVM(repository.get()) as T
-//        }
-//    }
 }

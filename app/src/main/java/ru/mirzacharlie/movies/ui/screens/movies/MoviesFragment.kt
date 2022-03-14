@@ -6,11 +6,9 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import ru.mirzacharlie.movies.appComponent
 import ru.mirzacharlie.movies.databinding.FragmentMoviesBinding
 import ru.mirzacharlie.movies.di.ViewModelFactory
 import ru.mirzacharlie.movies.ui.base.BaseFragment
-import ru.mirzacharlie.movies.ui.screens.moviedetails.MovieDetailsVM
 import javax.inject.Inject
 
 class MoviesFragment : BaseFragment<FragmentMoviesBinding>(FragmentMoviesBinding::inflate) {
@@ -19,12 +17,6 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(FragmentMoviesBinding
     lateinit var viewModelFactory: ViewModelFactory
 
     private val viewModel: MoviesVM by viewModels { viewModelFactory }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-//        requireActivity().appComponent.moviesComponent().build().inject(this)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

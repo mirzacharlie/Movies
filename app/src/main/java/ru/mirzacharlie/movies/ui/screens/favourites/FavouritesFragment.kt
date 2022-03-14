@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import ru.mirzacharlie.movies.appComponent
 import ru.mirzacharlie.movies.databinding.FavouritesFragmentBinding
 import ru.mirzacharlie.movies.di.ViewModelFactory
 import ru.mirzacharlie.movies.ui.base.BaseFragment
@@ -16,12 +15,6 @@ class FavouritesFragment : BaseFragment<FavouritesFragmentBinding>(FavouritesFra
     lateinit var viewModelFactory: ViewModelFactory
 
     private val viewModel: FavouritesVM by viewModels { viewModelFactory }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-//        requireActivity().appComponent.favouritesComponent().build().inject(this)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
