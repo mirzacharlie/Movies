@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Subcomponent
 import dagger.android.AndroidInjector
 import dagger.multibindings.IntoMap
+import ru.mirzacharlie.movies.di.ActivityComponent
 import ru.mirzacharlie.movies.di.ViewModelKey
 import ru.mirzacharlie.movies.ui.screens.favourites.FavouritesVM
 import javax.inject.Scope
@@ -22,7 +23,7 @@ interface MainActivityModule {
 
 @Subcomponent(modules = [MainActivityModule::class])
 @MainActivityScope
-interface MainActivityComponent {
+interface MainActivityComponent : ActivityComponent {
 
     fun inject(activity: MainActivity)
 

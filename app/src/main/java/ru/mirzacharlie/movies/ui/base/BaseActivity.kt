@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import dagger.android.support.DaggerAppCompatActivity
+import ru.mirzacharlie.movies.di.AppInjector
 
 abstract class BaseActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onDestroy() {
+        super.onDestroy()
+        AppInjector.destroyComponent(this)
     }
 }

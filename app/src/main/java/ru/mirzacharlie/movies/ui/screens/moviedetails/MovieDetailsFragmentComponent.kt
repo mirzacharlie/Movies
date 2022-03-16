@@ -5,6 +5,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.Subcomponent
 import dagger.multibindings.IntoMap
+import ru.mirzacharlie.movies.di.FragmentComponent
 import ru.mirzacharlie.movies.di.ViewModelKey
 import ru.mirzacharlie.movies.ui.screens.favourites.FavouritesFragment
 import ru.mirzacharlie.movies.ui.screens.favourites.FavouritesVM
@@ -22,7 +23,7 @@ interface MovieDetailsModule {
 
 @Subcomponent(modules = [MovieDetailsModule::class])
 @MovieDetailsFragmentScope
-interface MovieDetailsFragmentComponent {
+interface MovieDetailsFragmentComponent : FragmentComponent {
 
     fun inject(fragment: MovieDetailsFragment)
 

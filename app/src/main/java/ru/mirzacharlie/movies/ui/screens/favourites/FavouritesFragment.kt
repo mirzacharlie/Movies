@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ru.mirzacharlie.movies.databinding.FavouritesFragmentBinding
+import ru.mirzacharlie.movies.di.AppInjector
 import ru.mirzacharlie.movies.di.ViewModelFactory
 import ru.mirzacharlie.movies.ui.base.BaseFragment
 import javax.inject.Inject
@@ -14,7 +15,15 @@ class FavouritesFragment : BaseFragment<FavouritesFragmentBinding>(FavouritesFra
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private val viewModel: FavouritesVM by viewModels { viewModelFactory }
+    val viewModel: FavouritesVM by viewModels { viewModelFactory }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val component = AppInjector.appComponent?.favouritesComponent()?.build()
+        component?.inject(this)
+        AppInjector.createComponent(this, component)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

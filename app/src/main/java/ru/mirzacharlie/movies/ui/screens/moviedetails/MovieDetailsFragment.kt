@@ -7,6 +7,7 @@ import androidx.navigation.fragment.navArgs
 import coil.load
 import ru.mirzacharlie.movies.R
 import ru.mirzacharlie.movies.databinding.FragmentMovieDetailsBinding
+import ru.mirzacharlie.movies.di.AppInjector
 import ru.mirzacharlie.movies.di.ViewModelFactory
 import ru.mirzacharlie.movies.ui.base.BaseFragment
 import javax.inject.Inject
@@ -20,6 +21,14 @@ class MovieDetailsFragment :
     private val viewModel: MovieDetailsVM by viewModels { viewModelFactory }
 
     private val args: MovieDetailsFragmentArgs by navArgs()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val component = AppInjector.appComponent?.movieDetailsComponent()?.build()
+        component?.inject(this)
+        AppInjector.createComponent(this, component)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

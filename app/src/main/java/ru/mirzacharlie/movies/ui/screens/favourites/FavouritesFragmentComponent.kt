@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Subcomponent
 import dagger.multibindings.IntoMap
 import ru.mirzacharlie.movies.api.ApiService
+import ru.mirzacharlie.movies.di.FragmentComponent
 import ru.mirzacharlie.movies.di.ViewModelKey
 import javax.inject.Scope
 
@@ -22,7 +23,7 @@ interface FavouritesFragmentModule {
 
 @Subcomponent(modules = [FavouritesFragmentModule::class])
 @FavouritesFragmentScope
-interface FavouritesFragmentComponent {
+interface FavouritesFragmentComponent : FragmentComponent {
 
     fun inject(fragment: FavouritesFragment)
 

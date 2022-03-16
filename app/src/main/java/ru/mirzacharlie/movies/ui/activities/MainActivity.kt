@@ -7,6 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import ru.mirzacharlie.movies.R
 import ru.mirzacharlie.movies.databinding.ActivityMainBinding
+import ru.mirzacharlie.movies.di.AppInjector
 import ru.mirzacharlie.movies.di.ViewModelFactory
 import ru.mirzacharlie.movies.ui.base.BaseActivity
 import javax.inject.Inject
@@ -28,6 +29,10 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val component = AppInjector.appComponent?.mainActivityComponent()?.build()
+        component?.inject(this)
+        AppInjector.createComponent(this, component)
 
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

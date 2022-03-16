@@ -9,11 +9,10 @@ import dagger.Provides
 import ru.mirzacharlie.movies.App
 import javax.inject.Singleton
 
-@Module()
+@Module
 class AppModule {
 
     @Provides
-    @Singleton
     fun provideApplicationContext(app: App): Context =
         app.applicationContext
 
