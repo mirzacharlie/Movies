@@ -22,7 +22,7 @@ class FavouritesFragment : BaseFragment<FavouritesFragmentBinding>(FavouritesFra
 
         val component = AppInjector.appComponent?.favouritesComponent()?.build()
         component?.inject(this)
-        AppInjector.createComponent(this, component)
+        AppInjector.holdComponent(this, component)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

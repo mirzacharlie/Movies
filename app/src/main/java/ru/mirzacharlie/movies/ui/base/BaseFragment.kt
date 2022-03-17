@@ -26,6 +26,6 @@ abstract class BaseFragment<VB : ViewBinding>(open val bindingFactory: (LayoutIn
 
     override fun onDestroy() {
         super.onDestroy()
-        AppInjector.destroyComponent(this)
+        AppInjector.unholdComponent(this)
     }
 }

@@ -24,7 +24,7 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(FragmentMoviesBinding
 
         val component = AppInjector.appComponent?.moviesComponent()?.build()
         component?.inject(this)
-        AppInjector.createComponent(this, component)
+        AppInjector.holdComponent(this, component)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

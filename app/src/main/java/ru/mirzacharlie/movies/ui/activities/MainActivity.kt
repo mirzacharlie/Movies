@@ -32,7 +32,7 @@ class MainActivity : BaseActivity() {
 
         val component = AppInjector.appComponent?.mainActivityComponent()?.build()
         component?.inject(this)
-        AppInjector.createComponent(this, component)
+        AppInjector.holdComponent(this, component)
 
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

@@ -27,7 +27,7 @@ class MovieDetailsFragment :
 
         val component = AppInjector.appComponent?.movieDetailsComponent()?.build()
         component?.inject(this)
-        AppInjector.createComponent(this, component)
+        AppInjector.holdComponent(this, component)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
