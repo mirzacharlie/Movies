@@ -1,30 +1,20 @@
 package ru.mirzacharlie.movies.data
 
-import ru.mirzacharlie.movies.PreferencesManager
+import androidx.lifecycle.LiveData
 
-class Repository(
-    private val movieDao: MovieDao,
-    private val preferencesManager: PreferencesManager
-) {
+interface Repository {
 
-    val movies = movieDao.getPopulars()
-    val favourites = movieDao.getFavourites()
+    fun getMovies(): LiveData<List<MovieEntity>>
 
-    suspend fun getMovieById(id: Int) =
-        movieDao.getById(id)
+    fun getFavourites(): LiveData<List<MovieEntity>>
 
-    suspend fun saveMovies(movies: List<MovieEntity>) {
-        movieDao.insertList(movies)
-    }
+    suspend fun getMovieById(id: Int): MovieEntity
 
-    suspend fun updateFavourite(id: Int, isFavourite: Int) {
-        movieDao.updateFavourite(id, isFavourite)
-    }
+    suspend fun saveMovies(movies: List<MovieEntity>)
 
-    fun getLastLoadedPageNumber(): Int =
-        preferencesManager.getCashedPages()
+    suspend fun updateFavourite(id: Int, isFavourite: Int)
 
-    fun setLastLoadedPageNumber(lastPage: Int) {
-        preferencesManager.setCashedPages(lastPage)
-    }
+    fun getLastLoadedPageNumber(): Int
+
+    fun setLastLoadedPageNumber(lastPage: Int)
 }

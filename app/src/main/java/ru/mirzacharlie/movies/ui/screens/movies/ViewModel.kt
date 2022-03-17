@@ -6,15 +6,15 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.mirzacharlie.movies.api.ApiService
-import ru.mirzacharlie.movies.data.Repository
+import ru.mirzacharlie.movies.data.RepositoryImpl
 import ru.mirzacharlie.movies.utils.toEntity
 
 class MoviesVM(
     private val apiService: ApiService,
-    private val repository: Repository
+    private val repository: RepositoryImpl
 ) : ViewModel() {
 
-    val result = repository.movies
+    val result = repository.getMovies()
 
     fun loadNewPage() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -31,7 +31,7 @@ class MoviesVM(
 
     init {
         viewModelScope.launch {
-            if (repository.movies.value.isNullOrEmpty()) {
+            if (repository.getMovies().value.isNullOrEmpty()) {
                 loadNewPage()
             }
         }

@@ -5,5 +5,5 @@ import ru.mirzacharlie.movies.ui.base.BaseViewModel
 
 class FavouritesVM(repository: Repository) : BaseViewModel() {
 
-    val movies = repository.favourites
+    val movies = repository.getMovies()
 }

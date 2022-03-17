@@ -6,7 +6,7 @@ import org.koin.dsl.module
 import ru.mirzacharlie.movies.PreferencesManager
 import ru.mirzacharlie.movies.data.AppDatabase
 import ru.mirzacharlie.movies.data.MovieDao
-import ru.mirzacharlie.movies.data.Repository
+import ru.mirzacharlie.movies.data.RepositoryImpl
 
 val dataModule = module {
 
@@ -26,7 +26,7 @@ val dataModule = module {
         )
     }
 
-    single<Repository> {
-        Repository(movieDao = get(), preferencesManager = get())
+    single<RepositoryImpl> {
+        RepositoryImpl(movieDao = get(), preferencesManager = get())
     }
 }

@@ -7,9 +7,9 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.mirzacharlie.movies.data.MovieEntity
-import ru.mirzacharlie.movies.data.Repository
+import ru.mirzacharlie.movies.data.RepositoryImpl
 
-class MovieDetailsVM(private val repository: Repository) : ViewModel() {
+class MovieDetailsVM(private val repository: RepositoryImpl) : ViewModel() {
 
     private val _movie = MutableLiveData<MovieEntity>()
     val movie: LiveData<MovieEntity> get() = _movie
