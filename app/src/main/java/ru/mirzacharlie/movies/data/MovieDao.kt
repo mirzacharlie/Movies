@@ -1,16 +1,16 @@
 package ru.mirzacharlie.movies.data
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDao {
 
     @Query("SELECT * FROM movies ORDER BY popularity DESC")
-    fun getPopulars(): LiveData<List<MovieEntity>>
+    fun getPopulars(): Flow<List<MovieEntity>>
 
     @Query("SELECT * FROM movies WHERE isFavourite == 1 ORDER BY popularity DESC")
-    fun getFavourites(): LiveData<List<MovieEntity>>
+    fun getFavourites(): Flow<List<MovieEntity>>
 
     @Query("SELECT * FROM movies WHERE id == :id")
     suspend fun getById(id: Int): MovieEntity

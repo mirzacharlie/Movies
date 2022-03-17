@@ -1,12 +1,12 @@
 package ru.mirzacharlie.movies.data
 
-import androidx.lifecycle.LiveData
+import kotlinx.coroutines.flow.Flow
 
 interface Repository {
 
-    fun getMovies(): LiveData<List<MovieEntity>>
+    fun getMovies(): Flow<List<MovieEntity>>
 
-    fun getFavourites(): LiveData<List<MovieEntity>>
+    fun getFavourites(): Flow<List<MovieEntity>>
 
     suspend fun getMovieById(id: Int): MovieEntity
 

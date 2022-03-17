@@ -1,6 +1,5 @@
 package ru.mirzacharlie.movies.data
 
-import androidx.lifecycle.LiveData
 import ru.mirzacharlie.movies.PreferencesManager
 
 class RepositoryImpl (
@@ -8,9 +7,9 @@ class RepositoryImpl (
     private val preferencesManager: PreferencesManager
 ) : Repository {
 
-    override fun getMovies(): LiveData<List<MovieEntity>> = movieDao.getPopulars()
+    override fun getMovies()  = movieDao.getPopulars()
 
-    override fun getFavourites(): LiveData<List<MovieEntity>> = movieDao.getFavourites()
+    override fun getFavourites() = movieDao.getFavourites()
 
     override suspend fun getMovieById(id: Int) =
         movieDao.getById(id)

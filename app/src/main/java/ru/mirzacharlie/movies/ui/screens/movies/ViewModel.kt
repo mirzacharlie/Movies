@@ -2,19 +2,22 @@ package ru.mirzacharlie.movies.ui.screens.movies
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import ru.mirzacharlie.movies.api.ApiService
-import ru.mirzacharlie.movies.data.RepositoryImpl
+import ru.mirzacharlie.movies.data.Repository
 import ru.mirzacharlie.movies.utils.toEntity
 
 class MoviesVM(
     private val apiService: ApiService,
-    private val repository: RepositoryImpl
+    private val repository: Repository
 ) : ViewModel() {
 
-    val result = repository.getMovies()
+    val result = repository.getMovies().asLiveData()
 
     fun loadNewPage() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -30,8 +33,8 @@ class MoviesVM(
     }
 
     init {
-        viewModelScope.launch {
-            if (repository.getMovies().value.isNullOrEmpty()) {
+        runBlocking(Dispatchers.Default) {
+            if (repository.getMovies().first().isNullOrEmpty()) {
                 loadNewPage()
             }
         }
