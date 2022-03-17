@@ -27,11 +27,11 @@ class FavouritesAdapter : RecyclerView.Adapter<FavouritesAdapter.MovieViewHolder
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = data[position]
 
-        holder.binding.imageViewPoster.load("https://image.tmdb.org/t/p/w500" + movie.posterPath)
-
-        holder.binding.imageViewPoster.setOnClickListener {
-            onItemCLickListener?.onItemClick(movie.id)
-        }
+//        holder.binding.imageViewPoster.load("https://image.tmdb.org/t/p/w500" + movie.posterPath)
+//
+//        holder.binding.imageViewPoster.setOnClickListener {
+//            onItemCLickListener?.onItemClick(movie.id)
+//        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
