@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import ru.mirzacharlie.movies.data.MovieEntity
 import ru.mirzacharlie.movies.databinding.ItemMovieBinding
+import ru.mirzacharlie.movies.domain.models.MovieEntity
 
 class FavouritesAdapter : RecyclerView.Adapter<FavouritesAdapter.MovieViewHolder>() {
 

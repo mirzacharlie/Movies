@@ -3,11 +3,11 @@ package ru.mirzacharlie.movies.di
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import org.koin.dsl.module
-import ru.mirzacharlie.movies.PreferencesManager
+import ru.mirzacharlie.movies.RepositoryImpl
 import ru.mirzacharlie.movies.data.AppDatabase
 import ru.mirzacharlie.movies.data.MoviesLocalDataSource
-import ru.mirzacharlie.movies.data.Repository
-import ru.mirzacharlie.movies.data.RepositoryImpl
+import ru.mirzacharlie.movies.data.PreferencesManager
+import ru.mirzacharlie.movies.domain.repository.Repository
 
 val dataModule = module {
 

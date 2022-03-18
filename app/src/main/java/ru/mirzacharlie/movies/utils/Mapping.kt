@@ -1,7 +1,7 @@
 package ru.mirzacharlie.movies.utils
 
-import ru.mirzacharlie.movies.api.MovieDto
-import ru.mirzacharlie.movies.data.MovieEntity
+import ru.mirzacharlie.movies.domain.models.MovieDto
+import ru.mirzacharlie.movies.domain.models.MovieEntity
 
 fun MovieDto.toEntity() =
     MovieEntity(

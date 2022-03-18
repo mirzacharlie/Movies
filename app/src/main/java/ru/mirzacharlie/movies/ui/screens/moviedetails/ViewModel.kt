@@ -6,15 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.mirzacharlie.movies.data.MovieEntity
-import ru.mirzacharlie.movies.domain.usecases.AddMovieToFavouritesUseCase
-import ru.mirzacharlie.movies.domain.usecases.GetMovieByIdUseCase
-import ru.mirzacharlie.movies.domain.usecases.RemoveMovieFromFavouritesUseCase
+import ru.mirzacharlie.movies.domain.models.MovieEntity
 
 class MovieDetailsVM(
-    private val getMovieByIdUseCase: GetMovieByIdUseCase,
-    private val addMovieToFavouritesUseCase: AddMovieToFavouritesUseCase,
-    private val removeMovieFromFavouritesUseCase: RemoveMovieFromFavouritesUseCase
+    private val getMovieByIdUseCase: ru.mirzacharlie.movies.domain.usecases.GetMovieByIdUseCase,
+    private val addMovieToFavouritesUseCase: ru.mirzacharlie.movies.domain.usecases.AddMovieToFavouritesUseCase,
+    private val removeMovieFromFavouritesUseCase: ru.mirzacharlie.movies.domain.usecases.RemoveMovieFromFavouritesUseCase
 ) : ViewModel() {
 
     private val _movie = MutableLiveData<MovieEntity>()
