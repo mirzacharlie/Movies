@@ -4,7 +4,7 @@ import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface MovieDao {
+interface MoviesLocalDataSource {
 
     @Query("SELECT * FROM movies ORDER BY popularity DESC")
     fun getPopulars(): Flow<List<MovieEntity>>

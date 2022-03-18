@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import org.koin.dsl.module
 import ru.mirzacharlie.movies.PreferencesManager
 import ru.mirzacharlie.movies.data.AppDatabase
-import ru.mirzacharlie.movies.data.MovieDao
+import ru.mirzacharlie.movies.data.MoviesLocalDataSource
 import ru.mirzacharlie.movies.data.Repository
 import ru.mirzacharlie.movies.data.RepositoryImpl
 
@@ -15,7 +15,7 @@ val dataModule = module {
         AppDatabase.getInstance(context = get())
     }
 
-    single<MovieDao> {
+    single<MoviesLocalDataSource> {
         val database: AppDatabase = get()
         database.movieDao()
     }
@@ -28,6 +28,10 @@ val dataModule = module {
     }
 
     single<Repository> {
-        RepositoryImpl(movieDao = get(), preferencesManager = get())
+        RepositoryImpl(
+            remoteDataSource = get(),
+            localDataSource = get(),
+            preferencesManager = get()
+        )
     }
 }

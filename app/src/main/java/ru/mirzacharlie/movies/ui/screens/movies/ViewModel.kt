@@ -1,40 +1,32 @@
 package ru.mirzacharlie.movies.ui.screens.movies
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import ru.mirzacharlie.movies.api.ApiService
-import ru.mirzacharlie.movies.data.Repository
-import ru.mirzacharlie.movies.utils.toEntity
+import ru.mirzacharlie.movies.domain.usecases.GetMoviesUseCase
+import ru.mirzacharlie.movies.domain.usecases.HasSavedMoviesUseCase
+import ru.mirzacharlie.movies.domain.usecases.LoadNewMoviesPageUseCase
 
 class MoviesVM(
-    private val apiService: ApiService,
-    private val repository: Repository
+    private val loadNewMoviesPageUseCase: LoadNewMoviesPageUseCase,
+    private val hasSavedMoviesUseCase: HasSavedMoviesUseCase,
+    getMoviesUseCase: GetMoviesUseCase
 ) : ViewModel() {
 
-    val result = repository.getMovies().asLiveData()
+    val result = getMoviesUseCase.execute().asLiveData()
 
     fun loadNewPage() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val page = repository.getLastLoadedPageNumber()
-            Log.d("MoviesVM", "Page $page")
-            repository.saveMovies(
-                apiService.getPopular(page = page + 1).movies.map {
-                    it.toEntity()
-                }
-            )
-            repository.setLastLoadedPageNumber(page + 1)
+        viewModelScope.launch {
+            loadNewMoviesPageUseCase.execute()
         }
     }
 
     init {
         runBlocking(Dispatchers.Default) {
-            if (repository.getMovies().first().isNullOrEmpty()) {
+            if (!hasSavedMoviesUseCase.execute()) {
                 loadNewPage()
             }
         }

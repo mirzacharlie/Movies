@@ -1,12 +1,15 @@
 package ru.mirzacharlie.movies.data
 
 import kotlinx.coroutines.flow.Flow
+import ru.mirzacharlie.movies.api.MovieDto
 
 interface Repository {
 
-    fun getMovies(): Flow<List<MovieEntity>>
+    val movies: Flow<List<MovieEntity>>
 
-    fun getFavourites(): Flow<List<MovieEntity>>
+    val favourites: Flow<List<MovieEntity>>
+
+    suspend fun loadMoviesPage(page: Int): List<MovieDto>
 
     suspend fun getMovieById(id: Int): MovieEntity
 

@@ -3,7 +3,7 @@ package ru.mirzacharlie.movies.api
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface ApiService {
+interface MoviesRemoteDataSource {
 
     companion object {
         const val BASE_URL = "https://api.themoviedb.org/3/discover/"

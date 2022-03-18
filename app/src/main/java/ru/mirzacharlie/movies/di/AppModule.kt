@@ -15,16 +15,19 @@ val appModule = module {
 
     viewModel<MoviesVM> {
         MoviesVM(
-            apiService = get(),
-            repository = get()
+            loadNewMoviesPageUseCase = get(),
+            hasSavedMoviesUseCase = get(),
+            getMoviesUseCase = get()
         )
     }
 
     viewModel<MovieDetailsVM> {
-        MovieDetailsVM(repository = get())
+        MovieDetailsVM(
+            getMovieByIdUseCase = get(),
+            addMovieToFavouritesUseCase = get(),
+            removeMovieFromFavouritesUseCase = get()
+        )
     }
 
-    viewModel<FavouritesVM> {
-        FavouritesVM(repository = get())
-    }
+    viewModel<FavouritesVM> { FavouritesVM(getFavouritesMoviesUseCase = get()) }
 }

@@ -8,6 +8,7 @@ import org.koin.core.logger.Level
 import ru.mirzacharlie.movies.di.appModule
 import ru.mirzacharlie.movies.di.dataModule
 import ru.mirzacharlie.movies.di.networkModule
+import ru.mirzacharlie.movies.di.useCaseModule
 
 class App : Application() {
 
@@ -17,7 +18,7 @@ class App : Application() {
         startKoin {
             androidLogger(Level.ERROR)
             androidContext(this@App)
-            modules(listOf(appModule, networkModule, dataModule))
+            modules(listOf(appModule, networkModule, dataModule, useCaseModule))
         }
     }
 }

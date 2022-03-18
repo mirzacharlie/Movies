@@ -1,25 +1,31 @@
 package ru.mirzacharlie.movies.data
 
 import ru.mirzacharlie.movies.PreferencesManager
+import ru.mirzacharlie.movies.api.MovieDto
+import ru.mirzacharlie.movies.api.MoviesRemoteDataSource
 
 class RepositoryImpl (
-    private val movieDao: MovieDao,
+    private val remoteDataSource: MoviesRemoteDataSource,
+    private val localDataSource: MoviesLocalDataSource,
     private val preferencesManager: PreferencesManager
 ) : Repository {
 
-    override fun getMovies()  = movieDao.getPopulars()
+    override val movies  = localDataSource.getPopulars()
 
-    override fun getFavourites() = movieDao.getFavourites()
+    override val favourites = localDataSource.getFavourites()
+
+    override suspend fun loadMoviesPage(page: Int): List<MovieDto> =
+        remoteDataSource.getPopular(page = page).movies
 
     override suspend fun getMovieById(id: Int) =
-        movieDao.getById(id)
+        localDataSource.getById(id)
 
     override suspend fun saveMovies(movies: List<MovieEntity>) {
-        movieDao.insertList(movies)
+        localDataSource.insertList(movies)
     }
 
     override suspend fun updateFavourite(id: Int, isFavourite: Int) {
-        movieDao.updateFavourite(id, isFavourite)
+        localDataSource.updateFavourite(id, isFavourite)
     }
 
     override fun getLastLoadedPageNumber(): Int =
