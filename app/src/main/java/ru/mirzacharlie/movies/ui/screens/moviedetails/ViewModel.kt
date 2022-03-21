@@ -6,30 +6,34 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.mirzacharlie.movies.domain.models.MovieEntity
+import ru.mirzacharlie.movies.domain.usecases.AddMovieToFavouritesUseCase
+import ru.mirzacharlie.movies.domain.usecases.GetMovieByIdUseCase
+import ru.mirzacharlie.movies.domain.usecases.RemoveMovieFromFavouritesUseCase
+import ru.mirzacharlie.movies.ui.models.Movie
+import ru.mirzacharlie.movies.ui.models.toMovie
 
 class MovieDetailsVM(
-    private val getMovieByIdUseCase: ru.mirzacharlie.movies.domain.usecases.GetMovieByIdUseCase,
-    private val addMovieToFavouritesUseCase: ru.mirzacharlie.movies.domain.usecases.AddMovieToFavouritesUseCase,
-    private val removeMovieFromFavouritesUseCase: ru.mirzacharlie.movies.domain.usecases.RemoveMovieFromFavouritesUseCase
+    private val getMovieByIdUseCase: GetMovieByIdUseCase,
+    private val addMovieToFavouritesUseCase: AddMovieToFavouritesUseCase,
+    private val removeMovieFromFavouritesUseCase: RemoveMovieFromFavouritesUseCase
 ) : ViewModel() {
 
-    private val _movie = MutableLiveData<MovieEntity>()
-    val movie: LiveData<MovieEntity> get() = _movie
+    private val _movie = MutableLiveData<Movie>()
+    val movie: LiveData<Movie> get() = _movie
 
     fun requestMovie(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            _movie.postValue(getMovieByIdUseCase.execute(id))
+            _movie.postValue(getMovieByIdUseCase.execute(id).toMovie())
         }
     }
 
     fun updateFavourite() {
         viewModelScope.launch(Dispatchers.IO) {
             val movie = _movie.value ?: return@launch
-            if (movie.isFavourite == 0) {
-                addMovieToFavouritesUseCase.execute(movie.id)
-            } else {
+            if (movie.isFavourite) {
                 removeMovieFromFavouritesUseCase.execute(movie.id)
+            } else {
+                addMovieToFavouritesUseCase.execute(movie.id)
             }
             requestMovie(movie.id)
         }

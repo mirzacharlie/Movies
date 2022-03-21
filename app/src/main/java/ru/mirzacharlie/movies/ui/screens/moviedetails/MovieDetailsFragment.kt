@@ -32,10 +32,10 @@ class MovieDetailsFragment :
                 binding.textViewRating.text = "Rating: " + it.rating
                 binding.textViewDescriptionLabel.text = "Release date: " + it.releaseDate
 
-                if (it.isFavourite == 0) {
-                    binding.imageViewFav.setImageResource(R.drawable.ic_favorite_border_24)
-                } else {
+                if (it.isFavourite) {
                     binding.imageViewFav.setImageResource(R.drawable.ic_favorite_24)
+                } else {
+                    binding.imageViewFav.setImageResource(R.drawable.ic_favorite_border_24)
                 }
             }
         }

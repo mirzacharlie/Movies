@@ -2,7 +2,7 @@ package ru.mirzacharlie.movies.data
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
-import ru.mirzacharlie.movies.domain.models.MovieEntity
+import ru.mirzacharlie.movies.models.MovieEntity
 
 @Dao
 interface MoviesLocalDataSource {

@@ -2,7 +2,7 @@ package ru.mirzacharlie.movies.api
 
 import retrofit2.http.GET
 import retrofit2.http.Query
-import ru.mirzacharlie.movies.domain.models.ResultDto
+import ru.mirzacharlie.movies.models.ResultDto
 
 interface MoviesRemoteDataSource {
 

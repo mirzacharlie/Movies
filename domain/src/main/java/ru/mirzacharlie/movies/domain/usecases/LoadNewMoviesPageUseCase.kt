@@ -11,7 +11,7 @@ class LoadNewMoviesPageUseCase(
     suspend fun execute() {
         val lastLoadedPage = repository.getLastLoadedPageNumber()
         val newPage = loadMoviesPageUseCase.execute(lastLoadedPage + 1)
-        saveMoviesUseCase.execute(newPage.map { it.toEntity() })
+        saveMoviesUseCase.execute(newPage)
         repository.setLastLoadedPageNumber(lastLoadedPage + 1)
     }
 }

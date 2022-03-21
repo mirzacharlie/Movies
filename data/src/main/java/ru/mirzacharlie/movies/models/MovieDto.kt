@@ -1,6 +1,7 @@
-package ru.mirzacharlie.movies.domain.models
+package ru.mirzacharlie.movies.models
 
 import com.google.gson.annotations.SerializedName
+import ru.mirzacharlie.movies.domain.models.MovieModel
 
 data class MovieDto(
     val id: Int,
@@ -17,8 +18,10 @@ data class MovieDto(
 
     @SerializedName("release_date")
     val releaseDate: String?
-) {
-    fun toEntity() = MovieEntity(
+)
+
+fun MovieDto.toEntity() =
+    MovieEntity(
         id = this.id,
         title = this.title,
         rating = this.rating,
@@ -26,4 +29,14 @@ data class MovieDto(
         posterPath = this.posterPath,
         releaseDate = this.releaseDate
     )
-}
+
+fun MovieDto.toModel() =
+    MovieModel(
+        id = this.id,
+        title = this.title,
+        rating = this.rating,
+        popularity = this.popularity,
+        posterPath = this.posterPath,
+        releaseDate = this.releaseDate,
+        isFavourite = false
+    )

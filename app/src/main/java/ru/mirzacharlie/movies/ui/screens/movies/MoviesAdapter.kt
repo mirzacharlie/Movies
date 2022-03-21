@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ru.mirzacharlie.movies.databinding.ItemMovieBinding
-import ru.mirzacharlie.movies.domain.models.MovieEntity
+import ru.mirzacharlie.movies.ui.models.Movie
 
 class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
@@ -22,9 +22,9 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
     var onItemCLickListener: OnItemCLickListener? = null
     var onReachEndListener: OnReachEndListener? = null
 
-    private var data: List<MovieEntity> = emptyList()
+    private var data: List<Movie> = emptyList()
 
-    fun update(data: List<MovieEntity>) {
+    fun update(data: List<Movie>) {
         val diffResult = DiffUtil.calculateDiff(DiffCallback(this.data, data))
         this.data = data
         diffResult.dispatchUpdatesTo(this)
@@ -55,9 +55,13 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     override fun getItemCount(): Int = data.size
 
-    inner class MovieViewHolder(val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class MovieViewHolder(val binding: ItemMovieBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
-    class DiffCallback(private val oldData: List<MovieEntity>, private val newData: List<MovieEntity>) :
+    class DiffCallback(
+        private val oldData: List<Movie>,
+        private val newData: List<Movie>
+    ) :
         DiffUtil.Callback() {
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
@@ -65,7 +69,7 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return (newData[newItemPosition].rating == oldData[oldItemPosition].rating) &&
-                (newData[newItemPosition].popularity == oldData[oldItemPosition].popularity)
+                    (newData[newItemPosition].popularity == oldData[oldItemPosition].popularity)
         }
 
         override fun getOldListSize(): Int = oldData.size

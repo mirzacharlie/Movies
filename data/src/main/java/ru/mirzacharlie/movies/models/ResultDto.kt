@@ -1,4 +1,4 @@
-package ru.mirzacharlie.movies.domain.models
+package ru.mirzacharlie.movies.models
 
 import com.google.gson.annotations.SerializedName
 

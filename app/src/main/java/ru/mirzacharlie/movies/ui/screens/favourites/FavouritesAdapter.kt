@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ru.mirzacharlie.movies.databinding.ItemMovieBinding
-import ru.mirzacharlie.movies.domain.models.MovieEntity
+import ru.mirzacharlie.movies.ui.models.Movie
 
 class FavouritesAdapter : RecyclerView.Adapter<FavouritesAdapter.MovieViewHolder>() {
 
@@ -16,9 +16,9 @@ class FavouritesAdapter : RecyclerView.Adapter<FavouritesAdapter.MovieViewHolder
 
     var onItemCLickListener: OnItemCLickListener? = null
 
-    private var data: List<MovieEntity> = emptyList()
+    private var data: List<Movie> = emptyList()
 
-    fun update(data: List<MovieEntity>) {
+    fun update(data: List<Movie>) {
         val diffResult = DiffUtil.calculateDiff(DiffCallback(this.data, data))
         this.data = data
         diffResult.dispatchUpdatesTo(this)
@@ -44,7 +44,7 @@ class FavouritesAdapter : RecyclerView.Adapter<FavouritesAdapter.MovieViewHolder
 
     inner class MovieViewHolder(val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root)
 
-    class DiffCallback(private val oldData: List<MovieEntity>, private val newData: List<MovieEntity>) :
+    class DiffCallback(private val oldData: List<Movie>, private val newData: List<Movie>) :
         DiffUtil.Callback() {
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
