@@ -3,8 +3,6 @@ package ru.mirzacharlie.movies
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import ru.mirzacharlie.movies.api.MoviesRemoteDataSource
 import ru.mirzacharlie.movies.data.MoviesLocalDataSource
 import ru.mirzacharlie.movies.data.PreferencesManager
@@ -29,26 +27,18 @@ class RepositoryImpl(
     override val favourites = localDataSource.getFavourites()
         .map { it.map { e -> e.toModel() } }
 
-    override fun loadMoviesPage(page: Int): List<MovieModel> =
-        runBlocking(coroutineContext) {
+    override suspend fun loadMoviesPage(page: Int): List<MovieModel> =
             remoteDataSource.getPopular(page = page).movies.map { it.toModel() }
-        }
 
-    override fun getMovieById(id: Int) =
-        runBlocking(coroutineContext) {
+    override suspend fun getMovieById(id: Int) =
             localDataSource.getById(id).toModel()
-        }
 
-    override fun saveMovies(movies: List<MovieModel>) {
-        launch(coroutineContext) {
+    override suspend fun saveMovies(movies: List<MovieModel>) {
             localDataSource.insertList(movies.map { it.toEntity() })
-        }
     }
 
-    override fun updateFavourite(id: Int, isFavourite: Int) {
-        launch(coroutineContext) {
+    override suspend fun updateFavourite(id: Int, isFavourite: Int) {
             localDataSource.updateFavourite(id, isFavourite)
-        }
     }
 
     override fun getLastLoadedPageNumber(): Int =

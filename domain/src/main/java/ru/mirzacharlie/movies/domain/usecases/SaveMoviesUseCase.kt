@@ -5,7 +5,7 @@ import ru.mirzacharlie.movies.domain.repository.Repository
 
 class SaveMoviesUseCase(private val repository: Repository) {
 
-    fun execute(movies: List<MovieModel>) {
+    suspend fun execute(movies: List<MovieModel>) {
         repository.saveMovies(movies)
     }
 }

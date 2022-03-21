@@ -5,5 +5,5 @@ import ru.mirzacharlie.movies.domain.repository.Repository
 
 class LoadMoviesPageUseCase(private val repository: Repository) {
 
-    fun execute(page: Int): List<MovieModel> = repository.loadMoviesPage(page)
+    suspend fun execute(page: Int): List<MovieModel> = repository.loadMoviesPage(page)
 }

@@ -5,5 +5,5 @@ import ru.mirzacharlie.movies.domain.repository.Repository
 
 class GetMovieByIdUseCase(private val repository: Repository) {
 
-    fun execute(id: Int): MovieModel = repository.getMovieById(id)
+    suspend fun execute(id: Int): MovieModel = repository.getMovieById(id)
 }

@@ -10,13 +10,13 @@ interface Repository {
 
     val favourites: Flow<List<MovieModel>>
 
-    fun loadMoviesPage(page: Int): List<MovieModel>
+    suspend fun loadMoviesPage(page: Int): List<MovieModel>
 
-    fun getMovieById(id: Int): MovieModel
+    suspend fun getMovieById(id: Int): MovieModel
 
-    fun saveMovies(movies: List<MovieModel>)
+    suspend fun saveMovies(movies: List<MovieModel>)
 
-    fun updateFavourite(id: Int, isFavourite: Int)
+    suspend fun updateFavourite(id: Int, isFavourite: Int)
 
     fun getLastLoadedPageNumber(): Int
 
