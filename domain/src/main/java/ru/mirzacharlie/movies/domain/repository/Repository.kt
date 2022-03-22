@@ -16,7 +16,7 @@ interface Repository {
 
     suspend fun saveMovies(movies: List<MovieModel>)
 
-    suspend fun updateFavourite(id: Int, isFavourite: Int)
+    suspend fun updateFavourite(id: Int, isFavourite: Boolean)
 
     fun getLastLoadedPageNumber(): Int
 

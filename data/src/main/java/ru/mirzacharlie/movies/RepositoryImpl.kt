@@ -28,23 +28,23 @@ class RepositoryImpl(
         .map { it.map { e -> e.toModel() } }
 
     override suspend fun loadMoviesPage(page: Int): List<MovieModel> =
-            remoteDataSource.getPopular(page = page).movies.map { it.toModel() }
+        remoteDataSource.getPopular(page = page).movies.map { it.toModel() }
 
     override suspend fun getMovieById(id: Int) =
-            localDataSource.getById(id).toModel()
+        localDataSource.getById(id).toModel()
 
     override suspend fun saveMovies(movies: List<MovieModel>) {
-            localDataSource.insertList(movies.map { it.toEntity() })
+        localDataSource.insertList(movies.map { it.toEntity() })
     }
 
-    override suspend fun updateFavourite(id: Int, isFavourite: Int) {
-            localDataSource.updateFavourite(id, isFavourite)
+    override suspend fun updateFavourite(id: Int, isFavourite: Boolean) {
+        localDataSource.updateFavourite(id, if (isFavourite) 1 else 0)
     }
 
     override fun getLastLoadedPageNumber(): Int =
-        preferencesManager.getCashedPages()
+        preferencesManager.getCachedPages()
 
     override fun setLastLoadedPageNumber(lastPage: Int) {
-        preferencesManager.setCashedPages(lastPage)
+        preferencesManager.setCachedPages(lastPage)
     }
 }

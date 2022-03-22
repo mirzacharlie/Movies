@@ -6,10 +6,10 @@ class PreferencesManager(private val sharedPreferences: SharedPreferences) {
 
     private val SAVED_PAGES = "saved pages"
 
-    fun getCashedPages() =
+    fun getCachedPages() =
         sharedPreferences.getInt(SAVED_PAGES, 0)
 
-    fun setCashedPages(pages: Int) {
+    fun setCachedPages(pages: Int) {
         sharedPreferences.edit().putInt(SAVED_PAGES, pages).apply()
     }
 }
