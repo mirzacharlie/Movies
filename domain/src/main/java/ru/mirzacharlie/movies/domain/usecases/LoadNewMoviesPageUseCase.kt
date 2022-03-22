@@ -1,17 +1,18 @@
 package ru.mirzacharlie.movies.domain.usecases
 
-import ru.mirzacharlie.movies.domain.repository.Repository
+import ru.mirzacharlie.movies.domain.models.Page
+import ru.mirzacharlie.movies.domain.repository.PageRepository
 
 class LoadNewMoviesPageUseCase(
     private val loadMoviesPageUseCase: LoadMoviesPageUseCase,
     private val saveMoviesUseCase: SaveMoviesUseCase,
-    private val repository: Repository
+    private val repository: PageRepository
 ) {
 
     suspend fun execute() {
-        val lastLoadedPage = repository.getLastLoadedPageNumber()
+        val lastLoadedPage = repository.getLastLoadedPageNumber().value
         val newPage = loadMoviesPageUseCase.execute(lastLoadedPage + 1)
         saveMoviesUseCase.execute(newPage)
-        repository.setLastLoadedPageNumber(lastLoadedPage + 1)
+        repository.setLastLoadedPageNumber(Page(lastLoadedPage + 1))
     }
 }

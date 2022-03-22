@@ -19,10 +19,10 @@ import java.io.IOException
 @RunWith(AndroidJUnit4::class)
 @SmallTest
 @ExperimentalCoroutinesApi
-class MoviesLocalDataSourceTest {
+class MovieLocalDataSourceTest {
 
     private lateinit var db: AppDatabase
-    private lateinit var moviesLocalDataSource: MoviesLocalDataSource
+    private lateinit var moviesLocalDataSource: MovieLocalDataSource
 
     @Before
     fun createDb() {

@@ -1,22 +1,20 @@
-package ru.mirzacharlie.movies
+package ru.mirzacharlie.movies.repositories
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
-import ru.mirzacharlie.movies.api.MoviesRemoteDataSource
-import ru.mirzacharlie.movies.data.MoviesLocalDataSource
-import ru.mirzacharlie.movies.data.PreferencesManager
+import ru.mirzacharlie.movies.api.MovieRemoteDataSource
+import ru.mirzacharlie.movies.data.MovieLocalDataSource
 import ru.mirzacharlie.movies.domain.models.MovieModel
-import ru.mirzacharlie.movies.domain.repository.Repository
+import ru.mirzacharlie.movies.domain.repository.MovieRepository
 import ru.mirzacharlie.movies.models.toEntity
 import ru.mirzacharlie.movies.models.toModel
 import kotlin.coroutines.CoroutineContext
 
-class RepositoryImpl(
-    private val remoteDataSource: MoviesRemoteDataSource,
-    private val localDataSource: MoviesLocalDataSource,
-    private val preferencesManager: PreferencesManager
-) : Repository, CoroutineScope {
+class MovieRepositoryImpl(
+    private val remoteDataSource: MovieRemoteDataSource,
+    private val localDataSource: MovieLocalDataSource
+) : MovieRepository, CoroutineScope {
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO
@@ -39,12 +37,5 @@ class RepositoryImpl(
 
     override suspend fun updateFavourite(id: Int, isFavourite: Boolean) {
         localDataSource.updateFavourite(id, if (isFavourite) 1 else 0)
-    }
-
-    override fun getLastLoadedPageNumber(): Int =
-        preferencesManager.getCachedPages()
-
-    override fun setLastLoadedPageNumber(lastPage: Int) {
-        preferencesManager.setCachedPages(lastPage)
     }
 }

@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.mockito.kotlin.mock
 import ru.mirzacharlie.movies.domain.models.MovieModel
-import ru.mirzacharlie.movies.domain.repository.Repository
+import ru.mirzacharlie.movies.domain.repository.MovieRepository
 
 class GetMovieByIdUseCaseTest {
 
-    private val repository = mock<Repository>()
+    private val repository = mock<MovieRepository>()
 
     @Test
     suspend fun `should return the same data as in repository`() {

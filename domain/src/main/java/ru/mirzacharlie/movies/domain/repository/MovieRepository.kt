@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import ru.mirzacharlie.movies.domain.models.MovieModel
 
 
-interface Repository {
+interface MovieRepository {
 
     val movies: Flow<List<MovieModel>>
 
@@ -17,8 +17,4 @@ interface Repository {
     suspend fun saveMovies(movies: List<MovieModel>)
 
     suspend fun updateFavourite(id: Int, isFavourite: Boolean)
-
-    fun getLastLoadedPageNumber(): Int
-
-    fun setLastLoadedPageNumber(lastPage: Int)
 }

@@ -4,7 +4,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import ru.mirzacharlie.movies.models.ResultDto
 
-interface MoviesRemoteDataSource {
+interface MovieRemoteDataSource {
 
     companion object {
         const val BASE_URL = "https://api.themoviedb.org/3/discover/"

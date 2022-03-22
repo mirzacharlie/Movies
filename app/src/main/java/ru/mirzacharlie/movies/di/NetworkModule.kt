@@ -4,7 +4,7 @@ import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import ru.mirzacharlie.movies.api.MoviesRemoteDataSource
+import ru.mirzacharlie.movies.api.MovieRemoteDataSource
 import java.util.concurrent.TimeUnit
 
 val networkModule = module {
@@ -19,13 +19,13 @@ val networkModule = module {
     single<Retrofit> {
         Retrofit.Builder()
             .client(get())
-            .baseUrl(MoviesRemoteDataSource.BASE_URL)
+            .baseUrl(MovieRemoteDataSource.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
-    single<MoviesRemoteDataSource> {
+    single<MovieRemoteDataSource> {
         val retrofit: Retrofit = get()
-        retrofit.create(MoviesRemoteDataSource::class.java)
+        retrofit.create(MovieRemoteDataSource::class.java)
     }
 }

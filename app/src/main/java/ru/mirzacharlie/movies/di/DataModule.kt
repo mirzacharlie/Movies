@@ -3,11 +3,13 @@ package ru.mirzacharlie.movies.di
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import org.koin.dsl.module
-import ru.mirzacharlie.movies.RepositoryImpl
 import ru.mirzacharlie.movies.data.AppDatabase
-import ru.mirzacharlie.movies.data.MoviesLocalDataSource
+import ru.mirzacharlie.movies.data.MovieLocalDataSource
 import ru.mirzacharlie.movies.data.PreferencesManager
-import ru.mirzacharlie.movies.domain.repository.Repository
+import ru.mirzacharlie.movies.domain.repository.MovieRepository
+import ru.mirzacharlie.movies.domain.repository.PageRepository
+import ru.mirzacharlie.movies.repositories.MovieRepositoryImpl
+import ru.mirzacharlie.movies.repositories.PageRepositoryImpl
 
 val dataModule = module {
 
@@ -15,7 +17,7 @@ val dataModule = module {
         AppDatabase.getInstance(context = get())
     }
 
-    single<MoviesLocalDataSource> {
+    single<MovieLocalDataSource> {
         val database: AppDatabase = get()
         database.movieDao()
     }
@@ -27,11 +29,14 @@ val dataModule = module {
         )
     }
 
-    single<Repository> {
-        RepositoryImpl(
+    single<MovieRepository> {
+        MovieRepositoryImpl(
             remoteDataSource = get(),
-            localDataSource = get(),
-            preferencesManager = get()
+            localDataSource = get()
         )
+    }
+
+    single<PageRepository> {
+        PageRepositoryImpl(preferencesManager = get())
     }
 }
