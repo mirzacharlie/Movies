@@ -1,7 +1,5 @@
 package ru.mirzacharlie.movies.repositories
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
 import ru.mirzacharlie.movies.api.MovieRemoteDataSource
 import ru.mirzacharlie.movies.data.MovieLocalDataSource
@@ -9,15 +7,11 @@ import ru.mirzacharlie.movies.domain.models.MovieModel
 import ru.mirzacharlie.movies.domain.repository.MovieRepository
 import ru.mirzacharlie.movies.models.toEntity
 import ru.mirzacharlie.movies.models.toModel
-import kotlin.coroutines.CoroutineContext
 
 class MovieRepositoryImpl(
     private val remoteDataSource: MovieRemoteDataSource,
     private val localDataSource: MovieLocalDataSource
-) : MovieRepository, CoroutineScope {
-
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.IO
+) : MovieRepository {
 
     override val movies = localDataSource.getPopulars()
         .map { it.map { e -> e.toModel() } }
