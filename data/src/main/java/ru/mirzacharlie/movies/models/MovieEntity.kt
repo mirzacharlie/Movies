@@ -16,6 +16,7 @@ data class MovieEntity(
     val posterPath: String,
     @ColumnInfo(name = "release_date")
     val releaseDate: String?,
+    val isAdult: Int = 0,
     val isFavourite: Int = 0
 )
 
@@ -27,6 +28,7 @@ fun MovieEntity.toModel() =
         popularity = this.popularity,
         posterPath = this.posterPath,
         releaseDate = this.releaseDate,
+        isAdult = this.isAdult == 1,
         isFavourite = this.isFavourite == 1
     )
 
@@ -38,5 +40,6 @@ fun MovieModel.toEntity() =
         popularity = this.popularity,
         posterPath = this.posterPath,
         releaseDate = this.releaseDate,
+        isAdult = if (isFavourite) 1 else 0,
         isFavourite = if (isFavourite) 1 else 0
     )

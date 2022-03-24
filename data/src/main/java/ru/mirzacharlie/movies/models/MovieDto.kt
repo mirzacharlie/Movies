@@ -17,7 +17,10 @@ data class MovieDto(
     val posterPath: String,
 
     @SerializedName("release_date")
-    val releaseDate: String?
+    val releaseDate: String?,
+
+    @SerializedName("adult")
+    val isAdult: Boolean
 )
 
 fun MovieDto.toEntity() =
@@ -27,7 +30,8 @@ fun MovieDto.toEntity() =
         rating = this.rating,
         popularity = this.popularity,
         posterPath = this.posterPath,
-        releaseDate = this.releaseDate
+        releaseDate = this.releaseDate,
+        isAdult = if (this.isAdult) 1 else 0,
     )
 
 fun MovieDto.toModel() =
@@ -38,5 +42,6 @@ fun MovieDto.toModel() =
         popularity = this.popularity,
         posterPath = this.posterPath,
         releaseDate = this.releaseDate,
+        isAdult = this.isAdult,
         isFavourite = false
     )

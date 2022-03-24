@@ -9,6 +9,7 @@ data class Movie(
     val popularity: Float,
     val posterPath: String,
     val releaseDate: String?,
+    val isAdult: Boolean,
     val isFavourite: Boolean
 )
 
@@ -20,5 +21,6 @@ fun MovieModel.toMovie() =
         popularity = this.popularity,
         posterPath = this.posterPath,
         releaseDate = this.releaseDate,
+        isAdult = this.isAdult,
         isFavourite = this.isFavourite
     )

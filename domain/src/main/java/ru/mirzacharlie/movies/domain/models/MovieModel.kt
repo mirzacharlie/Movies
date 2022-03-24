@@ -7,5 +7,6 @@ data class MovieModel(
     val popularity: Float,
     val posterPath: String,
     val releaseDate: String?,
+    val isAdult: Boolean,
     val isFavourite: Boolean
 )
