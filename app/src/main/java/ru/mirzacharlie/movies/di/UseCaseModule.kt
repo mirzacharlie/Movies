@@ -20,5 +20,6 @@ val useCaseModule = module {
             repository = get()
         )
     }
+    factory<SearchMovieUseCase> { SearchMovieUseCase(repository = get()) }
 
 }

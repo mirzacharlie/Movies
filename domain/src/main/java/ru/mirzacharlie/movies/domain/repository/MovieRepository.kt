@@ -2,6 +2,7 @@ package ru.mirzacharlie.movies.domain.repository
 
 import kotlinx.coroutines.flow.Flow
 import ru.mirzacharlie.movies.domain.models.MovieModel
+import ru.mirzacharlie.movies.domain.models.MovieSearchParams
 
 
 interface MovieRepository {
@@ -17,4 +18,6 @@ interface MovieRepository {
     suspend fun saveMovies(movies: List<MovieModel>)
 
     suspend fun updateFavourite(id: Int, isFavourite: Boolean)
+
+    suspend fun getByParams(params: MovieSearchParams): List<MovieModel>
 }

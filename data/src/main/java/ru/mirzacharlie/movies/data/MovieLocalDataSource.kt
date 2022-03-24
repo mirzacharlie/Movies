@@ -16,6 +16,9 @@ interface MovieLocalDataSource {
     @Query("SELECT * FROM movies WHERE id == :id")
     suspend fun getById(id: Int): MovieEntity
 
+    @Query("SELECT * FROM movies WHERE title LIKE '%' || :title || '%' and rating >= :rating and isAdult == :isAdult")
+    suspend fun getByParams(title: String, rating: Float, isAdult: Int): List<MovieEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(data: MovieEntity)
 
