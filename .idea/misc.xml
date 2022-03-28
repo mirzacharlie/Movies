@@ -13,6 +13,13 @@
         <entry key="..\:/Android/AndroidStudioProjects/Movies/app/src/main/res/layout/item_movie.xml" value="0.25" />
         <entry key="..\:/Android/AndroidStudioProjects/Movies/app/src/main/res/menu/nav_menu.xml" value="0.22447916666666667" />
         <entry key="..\:/Android/AndroidStudioProjects/Movies/app/src/main/res/menu/nev_menu.xml" value="0.171875" />
+        <entry key="..\:/Users/YakovlevK/StudioProjects/Movies/app/src/main/res/layout/dialog_search.xml" value="0.303125" />
+        <entry key="..\:/Users/YakovlevK/StudioProjects/Movies/app/src/main/res/layout/fragment_movies.xml" value="0.33" />
+        <entry key="..\:/Users/YakovlevK/StudioProjects/Movies/app/src/main/res/layout/item_search_param_boolean.xml" value="0.303125" />
+        <entry key="..\:/Users/YakovlevK/StudioProjects/Movies/app/src/main/res/layout/item_search_param_rating.xml" value="0.303125" />
+        <entry key="..\:/Users/YakovlevK/StudioProjects/Movies/app/src/main/res/layout/item_search_param_string.xml" value="0.303125" />
+        <entry key="..\:/Users/YakovlevK/StudioProjects/Movies/app/src/main/res/menu/movies_menu.xml" value="0.303125" />
+        <entry key="..\:/Users/YakovlevK/StudioProjects/Movies/app/src/main/res/menu/nav_menu.xml" value="0.303125" />
       </map>
     </option>
   </component>

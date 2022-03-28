@@ -1,8 +1,6 @@
 package ru.mirzacharlie.movies.repositories
 
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.withContext
 import ru.mirzacharlie.movies.api.MovieRemoteDataSource
 import ru.mirzacharlie.movies.data.MovieLocalDataSource
 import ru.mirzacharlie.movies.domain.models.MovieModel
@@ -29,13 +27,11 @@ class MovieRepositoryImpl(
         localDataSource.getById(id).toModel()
 
     override suspend fun getByParams(params: MovieSearchParams): List<MovieModel> =
-        withContext(Dispatchers.Default) {
-            localDataSource.getByParams(
-                title = params.title,
-                rating = params.rating,
-                isAdult = if (params.isAdult) 1 else 0
-            ).map { it.toModel() }
-        }
+        localDataSource.getByParams(
+            title = params.title ?: "",
+            rating = params.rating ?: 0f,
+            isAdult = if (params.isAdult != null && params.isAdult == true) 1 else 0
+        ).map { it.toModel() }
 
     override suspend fun saveMovies(movies: List<MovieModel>) {
         localDataSource.insertList(movies.map { it.toEntity() })

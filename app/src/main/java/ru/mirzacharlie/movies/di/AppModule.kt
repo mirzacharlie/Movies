@@ -17,7 +17,8 @@ val appModule = module {
         MoviesVM(
             loadNewMoviesPageUseCase = get(),
             hasSavedMoviesUseCase = get(),
-            getMoviesUseCase = get()
+            getMoviesUseCase = get(),
+            searchMovieUseCase = get()
         )
     }
 
