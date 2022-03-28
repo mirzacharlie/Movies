@@ -7,7 +7,7 @@ data class Movie(
     val title: String,
     val rating: Float,
     val popularity: Float,
-    val posterPath: String,
+    val posterPath: String?,
     val releaseDate: String?,
     val isAdult: Boolean,
     val isFavourite: Boolean

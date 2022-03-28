@@ -14,7 +14,7 @@ data class MovieDto(
     val popularity: Float,
 
     @SerializedName("poster_path")
-    val posterPath: String,
+    val posterPath: String?,
 
     @SerializedName("release_date")
     val releaseDate: String?,
