@@ -1,43 +1,69 @@
 package ru.mirzacharlie.movies.ui.activities
 
 import android.os.Bundle
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
-import ru.mirzacharlie.movies.R
-import ru.mirzacharlie.movies.databinding.ActivityMainBinding
-import ru.mirzacharlie.movies.di.ViewModelInjection
-import ru.mirzacharlie.movies.ui.base.BaseActivity
-import javax.inject.Inject
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Text
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
+import ru.mirzacharlie.movies.ui.screens.favourites.FavouritesScreen
+import ru.mirzacharlie.movies.ui.screens.favourites.FavouritesVM
+import ru.mirzacharlie.movies.ui.screens.movies.MoviesScreen
+import ru.mirzacharlie.movies.ui.screens.movies.MoviesVM
 
-class MainActivity : BaseActivity() {
-
-    @Inject
-    @ViewModelInjection
-    lateinit var viewModel: MainVM
-
-    private var _binding: ActivityMainBinding? = null
-    private val binding: ActivityMainBinding
-        get() = _binding!!
-
-    private lateinit var navHost: NavHostFragment
-    private val navController: NavController
-        get() = navHost.navController
+@AndroidEntryPoint
+class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        _binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContent {
 
-        navHost = supportFragmentManager
-            .findFragmentById(R.id.navHostFragment) as NavHostFragment
+            val tabs = listOf("Movies", "Favourites")
+            var currentTab by remember { mutableStateOf(tabs.first()) }
+            val navController = rememberNavController()
 
-        binding.bottomNavBar.setupWithNavController(navController)
-    }
+            Column(modifier = Modifier.fillMaxSize()) {
+                Box(modifier = Modifier.weight(1f)) {
+                    when (currentTab) {
+                        "Movies" -> {
+                            val viewModel = hiltViewModel<MoviesVM>()
+                            MoviesScreen(viewModel = viewModel, navController = navController)
+                        }
+                        "Favourites" -> {
+                            val viewModel = hiltViewModel<FavouritesVM>()
+                            FavouritesScreen(viewModel = viewModel, navController = navController)
+                        }
+                    }
+                }
+            }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+            BottomNavigation(
+                backgroundColor = Color.Black
+            ) {
+                tabs.forEach { value ->
+                    val isSelected = value == currentTab
+                    BottomNavigationItem(selected = isSelected, onClick = {
+                        currentTab = value
+                    }, icon = {
+
+                    }, label = {
+                        Text(text = value, color = if (isSelected) Color.Red else Color.White)
+                    })
+                }
+            }
+        }
     }
 }

@@ -6,10 +6,13 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import ru.mirzacharlie.movies.App
 import javax.inject.Singleton
 
-@Module(includes = [NetworkModule::class])
+@Module
+@InstallIn(SingletonComponent::class)
 class AppModule {
 
     @Provides

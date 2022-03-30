@@ -4,27 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.Module
-import dagger.Provides
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.mirzacharlie.movies.data.MovieEntity
 import ru.mirzacharlie.movies.data.Repository
-import ru.mirzacharlie.movies.di.InjectionViewModelProvider
-import ru.mirzacharlie.movies.di.ViewModelInjection
 import javax.inject.Inject
 
-@Module
-class MovieDetailsModule {
-
-    @Provides
-    @ViewModelInjection
-    fun provideMovieDetailsVM(
-        fragment: MovieDetailsFragment,
-        viewModelProvider: InjectionViewModelProvider<MovieDetailsVM>
-    ): MovieDetailsVM = viewModelProvider.get(fragment, MovieDetailsVM::class)
-}
-
+@HiltViewModel
 class MovieDetailsVM @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {

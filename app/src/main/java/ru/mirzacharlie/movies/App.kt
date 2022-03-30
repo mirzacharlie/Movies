@@ -1,18 +1,7 @@
 package ru.mirzacharlie.movies
 
-import ru.mirzacharlie.movies.di.DaggerAppComponent
-import ru.mirzacharlie.movies.ui.base.BaseApplication
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-class App : BaseApplication() {
-
-    override fun onCreate() {
-
-        DaggerAppComponent
-            .builder()
-            .application(this)
-            .build()
-            .inject(this)
-
-        super.onCreate()
-    }
-}
+@HiltAndroidApp
+class App : Application()
