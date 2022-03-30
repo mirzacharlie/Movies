@@ -12,7 +12,7 @@ data class MovieEntity(
     val rating: Float,
     val popularity: Float,
     @ColumnInfo(name = "poster_path")
-    val posterPath: String,
+    val posterPath: String?,
     @ColumnInfo(name = "release_date")
     val releaseDate: String?,
     val isFavourite: Int = 0

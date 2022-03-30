@@ -41,7 +41,7 @@ class MoviesFragment :
             recyclerMovies.setContent {
                 MoviesListView(movies = it) {
                     findNavController().navigate(
-                        MoviesFragmentDirections.actionMoviesFragmentToMovieDetailsFragment(123)
+                        MoviesFragmentDirections.actionMoviesFragmentToMovieDetailsFragment(it)
                     )
                 }
             }
@@ -51,7 +51,7 @@ class MoviesFragment :
 
 @ExperimentalFoundationApi
 @Composable
-fun MoviesListView(movies: List<MovieEntity>, onClick: () -> Unit) {
+fun MoviesListView(movies: List<MovieEntity>, onClick: (id: Int) -> Unit) {
     LazyVerticalGrid(
         modifier = Modifier.fillMaxSize(),
         cells = GridCells.Fixed(count = 3),
@@ -60,7 +60,7 @@ fun MoviesListView(movies: List<MovieEntity>, onClick: () -> Unit) {
                 item {
                     Box(modifier = Modifier
                         .clickable {
-                        onClick.invoke()
+                        onClick.invoke(it.id)
                     }.height(190.dp)
                     ) {
                         Image(
