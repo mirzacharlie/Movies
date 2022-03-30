@@ -1,16 +1,29 @@
 package ru.mirzacharlie.movies.ui.screens.moviedetails
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import coil.load
 import ru.mirzacharlie.movies.R
 import ru.mirzacharlie.movies.databinding.FragmentMovieDetailsBinding
 import ru.mirzacharlie.movies.ui.base.BaseFragment
 
-class MovieDetailsFragment :
-    BaseFragment<MovieDetailsVM, FragmentMovieDetailsBinding>(FragmentMovieDetailsBinding::inflate)
+class MovieDetailsFragment : BaseFragment<MovieDetailsVM>()
 { // ktlint-disable curly-spacing
+
+    private var _binding: FragmentMovieDetailsBinding? = null
+    private val binding: FragmentMovieDetailsBinding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentMovieDetailsBinding.inflate(inflater)
+        return binding.root
+    }
 
     private val args: MovieDetailsFragmentArgs by navArgs()
 
@@ -37,5 +50,10 @@ class MovieDetailsFragment :
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
