@@ -2,12 +2,6 @@ package ru.mirzacharlie.movies.domain.models
 
 import java.io.Serializable
 
-data class MovieSearchParams(
-    val title: String? = null,
-    val rating: Float? = null,
-    val isAdult: Boolean? = null
-) : Serializable
-
 sealed interface SearchParams : Serializable {
 
     fun query(): String
@@ -31,6 +25,5 @@ sealed interface SearchParams : Serializable {
         var value: Boolean = false
     ) : SearchParams {
         override fun query(): String = if (value) "isAdult == 1" else "isAdult == 0"
-
     }
 }

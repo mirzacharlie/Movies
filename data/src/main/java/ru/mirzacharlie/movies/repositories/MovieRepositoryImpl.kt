@@ -40,6 +40,8 @@ class MovieRepositoryImpl(
 
                 if (index != params.size - 1) {
                     query.append(" and")
+                } else {
+                    query.append(" ORDER BY popularity DESC")
                 }
             }
         }
