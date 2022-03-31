@@ -8,7 +8,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import ru.mirzacharlie.movies.domain.models.MovieSearchParams
+import ru.mirzacharlie.movies.domain.models.SearchParams
 import ru.mirzacharlie.movies.domain.usecases.GetMoviesUseCase
 import ru.mirzacharlie.movies.domain.usecases.HasSavedMoviesUseCase
 import ru.mirzacharlie.movies.domain.usecases.LoadNewMoviesPageUseCase
@@ -36,7 +36,7 @@ class MoviesVM(
         }
     }
 
-    fun search(params: MovieSearchParams) {
+    fun search(params: List<SearchParams>) {
         CoroutineScope(coroutineContext + Job()).launch {
             val searchResult = searchMovieUseCase.execute(params).map { it.toMovie() }
 

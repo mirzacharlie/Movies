@@ -3,18 +3,17 @@ package ru.mirzacharlie.movies.ui.dialogs.search.adapters
 import android.text.Editable
 import android.text.TextWatcher
 import ru.mirzacharlie.movies.databinding.ItemSearchParamStringBinding
-import ru.mirzacharlie.movies.domain.models.MovieSearchParams
+import ru.mirzacharlie.movies.domain.models.SearchParams
 import ru.mirzacharlie.movies.ui.delegateadapter.ViewBindingDelegateAdapter
-import ru.mirzacharlie.movies.ui.models.TitleSearchParam
 
 class TitleSearchDelegateAdapter :
-    ViewBindingDelegateAdapter<TitleSearchParam, ItemSearchParamStringBinding>
+    ViewBindingDelegateAdapter<SearchParams.TitleSearchParamModel, ItemSearchParamStringBinding>
         (ItemSearchParamStringBinding::inflate) {
 
-    override var data = MovieSearchParams(null, null, null)
+    override var data: SearchParams = SearchParams.TitleSearchParamModel()
 
-    override fun ItemSearchParamStringBinding.onBind(item: TitleSearchParam) {
-        editTextValue.hint = item.name
+    override fun ItemSearchParamStringBinding.onBind(item: SearchParams.TitleSearchParamModel) {
+        editTextValue.hint = item.hint
 
         editTextValue.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -23,12 +22,12 @@ class TitleSearchDelegateAdapter :
             override fun afterTextChanged(s: Editable?) {
                 val text = s?.toString()?.trim() ?: return
                 item.value = text
-                data = MovieSearchParams(text, null, null)
+                data = SearchParams.TitleSearchParamModel(value = text)
             }
         })
     }
 
-    override fun isForViewType(item: Any): Boolean = item is TitleSearchParam
+    override fun isForViewType(item: Any): Boolean = item is SearchParams.TitleSearchParamModel
 
-    override fun TitleSearchParam.getItemId(): Any = name
+    override fun SearchParams.TitleSearchParamModel.getItemId(): Any = hint
 }

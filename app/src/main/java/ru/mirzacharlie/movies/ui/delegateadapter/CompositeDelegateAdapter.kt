@@ -3,20 +3,19 @@ package ru.mirzacharlie.movies.ui.delegateadapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import ru.mirzacharlie.movies.domain.models.MovieSearchParams
-import ru.mirzacharlie.movies.utils.merge
+import ru.mirzacharlie.movies.domain.models.SearchParams
 
 open class CompositeDelegateAdapter(var adapters: List<DelegateAdapter>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    fun getSearchParams(): MovieSearchParams {
+    fun getSearchParams(): List<SearchParams> {
 
-        var result = MovieSearchParams()
+        val params = mutableListOf<SearchParams>()
 
         adapters.forEach {
-            result = result merge it.data
+            params.add(it.data)
         }
 
-        return result
+        return params
     }
 
     //  Contract is: adapters position is used as ViewType.

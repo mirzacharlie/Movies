@@ -1,27 +1,26 @@
 package ru.mirzacharlie.movies.ui.dialogs.search.adapters
 
 import ru.mirzacharlie.movies.databinding.ItemSearchParamRatingBinding
-import ru.mirzacharlie.movies.domain.models.MovieSearchParams
+import ru.mirzacharlie.movies.domain.models.SearchParams
 import ru.mirzacharlie.movies.ui.delegateadapter.ViewBindingDelegateAdapter
-import ru.mirzacharlie.movies.ui.models.RatingSearchParam
 
 class RatingSearchDelegateAdapter :
-    ViewBindingDelegateAdapter<RatingSearchParam, ItemSearchParamRatingBinding>
+    ViewBindingDelegateAdapter<SearchParams.RatingSearchParamModel, ItemSearchParamRatingBinding>
         (ItemSearchParamRatingBinding::inflate) {
 
-    override var data = MovieSearchParams(null, null, null)
+    override var data: SearchParams = SearchParams.RatingSearchParamModel()
 
-    override fun ItemSearchParamRatingBinding.onBind(item: RatingSearchParam) {
+    override fun ItemSearchParamRatingBinding.onBind(item: SearchParams.RatingSearchParamModel) {
 
         ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
 
             ratingBar.rating = rating
-            data = MovieSearchParams(null, rating * 2, null)
+            data = SearchParams.RatingSearchParamModel(value = rating * 2)
             item.value = rating
         }
     }
 
-    override fun isForViewType(item: Any): Boolean = item is RatingSearchParam
+    override fun isForViewType(item: Any): Boolean = item is SearchParams.RatingSearchParamModel
 
-    override fun RatingSearchParam.getItemId(): Any = name
+    override fun SearchParams.RatingSearchParamModel.getItemId(): Any = hint
 }

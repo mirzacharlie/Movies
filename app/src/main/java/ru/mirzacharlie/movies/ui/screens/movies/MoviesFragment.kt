@@ -8,7 +8,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.mirzacharlie.movies.databinding.FragmentMoviesBinding
-import ru.mirzacharlie.movies.domain.models.MovieSearchParams
+import ru.mirzacharlie.movies.domain.models.SearchParams
 import ru.mirzacharlie.movies.ui.base.BaseFragment
 import ru.mirzacharlie.movies.ui.dialogs.search.SearchDialog
 
@@ -20,8 +20,15 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(FragmentMoviesBinding
         super.onViewCreated(view, savedInstanceState)
 
         setFragmentResultListener(SearchDialog::javaClass.name) { _, bundle ->
-            val result = bundle.getSerializable(SearchDialog.KEY_RESULT) as MovieSearchParams
-            viewModel.search(result)
+            val params = mutableListOf<SearchParams>()
+
+            for (i in 0 until bundle.size()) {
+                val key = "${SearchDialog.KEY_RESULT}+$i"
+                val param = bundle.getSerializable(key) as SearchParams
+                params.add(param)
+            }
+
+            viewModel.search(params)
         }
 
         val adapter = MoviesAdapter()

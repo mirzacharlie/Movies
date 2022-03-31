@@ -1,26 +1,25 @@
 package ru.mirzacharlie.movies.ui.dialogs.search.adapters
 
 import ru.mirzacharlie.movies.databinding.ItemSearchParamBooleanBinding
-import ru.mirzacharlie.movies.domain.models.MovieSearchParams
+import ru.mirzacharlie.movies.domain.models.SearchParams
 import ru.mirzacharlie.movies.ui.delegateadapter.ViewBindingDelegateAdapter
-import ru.mirzacharlie.movies.ui.models.IsAdultSearchParam
 
 class AdultSearchDelegateAdapter :
-    ViewBindingDelegateAdapter<IsAdultSearchParam, ItemSearchParamBooleanBinding>
+    ViewBindingDelegateAdapter<SearchParams.AdultSearchParamModel, ItemSearchParamBooleanBinding>
         (ItemSearchParamBooleanBinding::inflate) {
 
-    override var data = MovieSearchParams(null, null, false)
+    override var data: SearchParams = SearchParams.AdultSearchParamModel()
 
-    override fun ItemSearchParamBooleanBinding.onBind(item: IsAdultSearchParam) {
-        textViewParamName.text = item.name
+    override fun ItemSearchParamBooleanBinding.onBind(item: SearchParams.AdultSearchParamModel) {
+        textViewParamName.text = item.hint
 
         checkBoxValue.setOnCheckedChangeListener { _, isChecked ->
             item.value = isChecked
-            data = MovieSearchParams(null, null, isChecked)
+            data = SearchParams.AdultSearchParamModel(value = isChecked)
         }
     }
 
-    override fun isForViewType(item: Any): Boolean = item is IsAdultSearchParam
+    override fun isForViewType(item: Any): Boolean = item is SearchParams.AdultSearchParamModel
 
-    override fun IsAdultSearchParam.getItemId(): Any = name
+    override fun SearchParams.AdultSearchParamModel.getItemId(): Any = hint
 }
